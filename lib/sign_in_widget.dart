@@ -60,7 +60,10 @@ class _SignInWidgetState extends State<SignInWidget> {
         );
 
         // Navigate to home page on success
-        Navigator.of(context).pushReplacementNamed(HomePageWidget.routeName);
+
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePageWidget()));
       } on FirebaseAuthException catch (e) {
         // Handle authentication errors
         ScaffoldMessenger.of(context).showSnackBar(

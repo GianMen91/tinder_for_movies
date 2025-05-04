@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tinder_for_movies/sign_up_widget.dart';
+import 'package:tinder_for_movies/sign_in_widget.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,7 +13,7 @@ void main() async {
   runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignUpWidget(),
+      home: SignInWidget(),
     ),
   );
 }
