@@ -224,12 +224,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       final movie = snapshot.data!;
                                       return GestureDetector(
                                         onTap: () {
-                                          Navigator.of(context).pushNamed(
-                                            MovieDetailsWidget.routeName,
-                                            arguments: {
-                                              'movieRef': movie.reference
-                                            },
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MovieDetailsWidget(
+                                                    receiveMovie: movie.reference,
+                                                  ),
+                                            ),
                                           );
+
                                         },
                                         child: ClipRRect(
                                           borderRadius:
@@ -311,11 +315,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   final movie = movies[index];
                                   return GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context).pushNamed(
-                                        MovieDetailsWidget.routeName,
-                                        arguments: {
-                                          'movieRef': movie.reference
-                                        },
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MovieDetailsWidget(
+                                                receiveMovie: movie.reference,
+                                              ),
+                                        ),
                                       );
                                     },
                                     child: ClipRRect(
@@ -395,11 +402,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   final movie = movies[index];
                                   return GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context).pushNamed(
-                                        MovieDetailsWidget.routeName,
-                                        arguments: {
-                                          'movieRef': movie.reference
-                                        },
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MovieDetailsWidget(
+                                                receiveMovie: movie.reference,
+                                              ),
+                                        ),
                                       );
                                     },
                                     child: ClipRRect(
@@ -479,11 +489,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   final movie = movies[index];
                                   return GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context).pushNamed(
-                                        MovieDetailsWidget.routeName,
-                                        arguments: {
-                                          'movieRef': movie.reference
-                                        },
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MovieDetailsWidget(
+                                                receiveMovie: movie.reference,
+                                              ),
+                                        ),
                                       );
                                     },
                                     child: ClipRRect(

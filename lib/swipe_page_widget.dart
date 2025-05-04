@@ -184,14 +184,15 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        Navigator.pushNamed(
+                                        await Navigator.push(
                                           context,
-                                          MovieDetailsWidget.routeName,
-                                          arguments: {
-                                            'receiveMovie':
-                                                swipeableStackMoviesRecord
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MovieDetailsWidget(
+                                                   receiveMovie: swipeableStackMoviesRecord
                                                     .reference,
-                                          },
+                                            ),
+                                          ),
                                         );
                                       },
                                       child: const Icon(

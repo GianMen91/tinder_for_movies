@@ -13,8 +13,6 @@ class MovieDetailsWidget extends StatefulWidget {
 
   final DocumentReference? receiveMovie;
 
-  static String routeName = 'MovieDetails';
-  static String routePath = '/movieDetails';
 
   @override
   State<MovieDetailsWidget> createState() => _MovieDetailsWidgetState();
