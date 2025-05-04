@@ -11,8 +11,7 @@ import 'movies_record.dart';
 class SwipePageWidget extends StatefulWidget {
   const SwipePageWidget({super.key});
 
-  static String routeName = 'SwipePage';
-  static String routePath = '/swipePage';
+
 
   @override
   State<SwipePageWidget> createState() => _SwipePageWidgetState();

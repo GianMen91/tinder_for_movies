@@ -141,8 +141,6 @@ void safeSetState(Function setState) {
 class SignUpWidget extends StatefulWidget {
   const SignUpWidget({super.key});
 
-  static const String routeName = 'SignUp';
-  static const String routePath = '/signUp';
 
   @override
   State<SignUpWidget> createState() => _SignUpWidgetState();
@@ -221,20 +219,25 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 children: [
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                    child: GestureDetector(
-
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       onTap: () async {
-                            () => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => const SignInWidget()));
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => const SignInWidget()));
+
 
                       },
                       child: Text(
                         'Sign In',
-                        style: GoogleFonts.interTight(
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.interTight().fontFamily,
                           color: const Color(0xFF787777),
                           fontSize: 30,
-                          letterSpacing: 0.0,
                         ),
                       ),
                     ),

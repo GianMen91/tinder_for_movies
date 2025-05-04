@@ -9,8 +9,7 @@ import 'home_page_widget.dart';
 class SignInWidget extends StatefulWidget {
   const SignInWidget({super.key});
 
-  static String routeName = 'SignIn';
-  static String routePath = '/signIn';
+
 
   @override
   State<SignInWidget> createState() => _SignInWidgetState();
@@ -133,7 +132,12 @@ class _SignInWidgetState extends State<SignInWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          Navigator.of(context).pushNamed(SignUpWidget.routeName);
+
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const SignUpWidget()));
+
+
                         },
                         child: Text(
                           'Sign Up',
