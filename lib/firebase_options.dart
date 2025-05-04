@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBWPl1JmXHT_UvVfbD90SNyZIaPwBuUc24',
+    apiKey: 'AIzaSyB7lsb1Egc11rFn3uyhlsyYlTbSDRTNuWg',
     appId: '1:52469218112:android:a70ef947507ebd98d5d8a5',
-    messagingSenderId: '260658349479',
+    messagingSenderId: '52469218112',
     projectId: 'tinderformovies-f4103',
-    storageBucket: 'muscle-mate-app.appspot.com',
+    storageBucket: 'tinderformovies-f4103.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBgYgC6NR_8UnxKhlywtXOMCYcGa4Kv8t8',
+    apiKey: 'AIzaSyDny0-4YjWWeCmSV1VXCwpQvRTZkGQ5HpI',
     appId: '1:52469218112:ios:f69ad7c78eb5b952d5d8a5',
-    messagingSenderId: '260658349479',
+    messagingSenderId: '52469218112',
     projectId: 'tinderformovies-f4103',
-    storageBucket: 'muscle-mate-app.appspot.com',
-    iosBundleId: 'com.app.muscleMate',
+    storageBucket: 'tinderformovies-f4103.firebasestorage.app',
+    iosBundleId: 'com.mycompany.tinderformovies',
   );
 
 }
