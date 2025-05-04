@@ -38,7 +38,6 @@ class _SwipeableStackState extends State<SwipeableStack> {
     return CardSwiper(
 
       cardsCount: widget.itemCount,
-      allowedSwipeDirection: const AllowedSwipeDirection.all(),
       cardBuilder: (context, index, percentThresholdX, percentThresholdY) => widget.itemBuilder(context, index),
       onSwipe: (int previousIndex, int? currentIndex, CardSwiperDirection direction) {
         widget.onSwipeFn?.call(previousIndex);

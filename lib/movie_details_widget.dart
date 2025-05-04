@@ -111,15 +111,12 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
               centerTitle: true,
             ),
             body: SafeArea(
-              top: true,
               child: Column(
-                mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: Row(
-                      mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ClipRRect(
@@ -134,7 +131,6 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                           child: Column(
-                            mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(

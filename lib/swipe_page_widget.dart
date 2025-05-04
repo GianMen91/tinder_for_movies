@@ -62,9 +62,7 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
           elevation: 2,
         ),
         body: SafeArea(
-          top: true,
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
                 child: StreamBuilder<List<MoviesRecord>>(
@@ -123,7 +121,6 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Column(
-                            mainAxisSize: MainAxisSize.max,
                             children: [
                               Expanded(
                                 child: Padding(
@@ -144,7 +141,6 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     20, 0, 20, 20),
                                 child: Row(
-                                  mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,
                                   children: [
@@ -174,7 +170,6 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     20, 0, 20, 25),
                                 child: Row(
-                                  mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceEvenly,
                                   children: [
@@ -234,9 +229,6 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                         );
                       },
                       itemCount: swipeableStackMoviesRecordList.length,
-                      loop: false,
-                      cardDisplayCount: 3,
-                      scale: 0.9,
                     );
                   },
                 ),

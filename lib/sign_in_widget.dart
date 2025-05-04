@@ -89,11 +89,9 @@ class _SignInWidgetState extends State<SignInWidget> {
           elevation: 0,
         ),
         body: SafeArea(
-          top: true,
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisSize: MainAxisSize.max,
               children: [
                 Align(
                   alignment: const AlignmentDirectional(0, 0),
@@ -111,7 +109,6 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                 ),
                 Row(
-                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
@@ -152,8 +149,6 @@ class _SignInWidgetState extends State<SignInWidget> {
                   child: TextFormField(
                     controller: emailTextController,
                     focusNode: textFieldFocusNode1,
-                    autofocus: false,
-                    obscureText: false,
                     decoration: InputDecoration(
                       isDense: true,
                       hintText: 'email',
@@ -164,28 +159,24 @@ class _SignInWidgetState extends State<SignInWidget> {
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -212,7 +203,6 @@ class _SignInWidgetState extends State<SignInWidget> {
                   child: TextFormField(
                     controller: passwordTextController,
                     focusNode: textFieldFocusNode2,
-                    autofocus: false,
                     obscureText: !passwordVisibility,
                     decoration: InputDecoration(
                       isDense: true,
@@ -224,28 +214,24 @@ class _SignInWidgetState extends State<SignInWidget> {
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),

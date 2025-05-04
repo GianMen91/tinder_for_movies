@@ -199,9 +199,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           elevation: 0,
         ),
         body: SafeArea(
-          top: true,
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             children: [
               Align(
                 alignment: const AlignmentDirectional(0, 0),
@@ -219,7 +217,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 ),
               ),
               Row(
-                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
@@ -262,8 +259,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   child: TextFormField(
                     controller: _model.emailTextController,
                     focusNode: _model.textFieldFocusNode1,
-                    autofocus: false,
-                    obscureText: false,
                     decoration: InputDecoration(
                       isDense: true,
                       labelStyle: GoogleFonts.inter(
@@ -277,28 +272,24 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -319,7 +310,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   child: TextFormField(
                     controller: _model.passwordTextController,
                     focusNode: _model.textFieldFocusNode2,
-                    autofocus: false,
                     obscureText: !_model.passwordVisibility1,
                     decoration: InputDecoration(
                       isDense: true,
@@ -334,28 +324,24 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -390,7 +376,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   child: TextFormField(
                     controller: _model.confirmPasswordTextController,
                     focusNode: _model.textFieldFocusNode3,
-                    autofocus: false,
                     obscureText: !_model.passwordVisibility2,
                     decoration: InputDecoration(
                       isDense: true,
@@ -405,28 +390,24 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -461,8 +442,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   child: TextFormField(
                     controller: _model.textController2,
                     focusNode: _model.textFieldFocusNode4,
-                    autofocus: false,
-                    obscureText: false,
                     decoration: InputDecoration(
                       isDense: true,
                       labelStyle: GoogleFonts.inter(
@@ -476,28 +455,24 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.white,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Colors.red,
-                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),

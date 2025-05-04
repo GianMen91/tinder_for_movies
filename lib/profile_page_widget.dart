@@ -56,9 +56,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
           elevation: 2,
         ),
         body: SafeArea(
-          top: true,
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
