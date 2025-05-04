@@ -1,0 +1,30 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "tinderformovies-f4103",
+          "appId": "1:52469218112:android:a70ef947507ebd98d5d8a5",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "tinderformovies-f4103",
+          "appId": "1:52469218112:ios:f69ad7c78eb5b952d5d8a5",
+          "uploadDebugSymbols": true,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "tinderformovies-f4103",
+          "configurations": {
+            "android": "1:52469218112:android:a70ef947507ebd98d5d8a5",
+            "ios": "1:52469218112:ios:f69ad7c78eb5b952d5d8a5"
+          }
+        }
+      }
+    }
+  }
+}

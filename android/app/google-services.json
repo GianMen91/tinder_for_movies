@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "52469218112",
+    "project_id": "tinderformovies-f4103",
+    "storage_bucket": "tinderformovies-f4103.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52469218112:android:a70ef947507ebd98d5d8a5",
+        "android_client_info": {
+          "package_name": "com.mycompany.tinderformovies"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7lsb1Egc11rFn3uyhlsyYlTbSDRTNuWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
