@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,11 +23,11 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Get current user reference
-  DocumentReference? get currentUserReference =>
-      FirebaseFirestore.instance.collection('users').doc(
-          /* Replace with your auth implementation */
-          // For example: FirebaseAuth.instance.currentUser?.uid
-          );
+  DocumentReference? get currentUserReference {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return null;
+    return FirebaseFirestore.instance.collection('users').doc(uid);
+  }
 
   @override
   void initState() {
