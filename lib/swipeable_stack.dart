@@ -29,10 +29,10 @@ class SwipeableStack extends StatefulWidget {
   final double scale;
 
   @override
-  _SwipeableStackState createState() => _SwipeableStackState();
+  SwipeableStackState createState() => SwipeableStackState();
 }
 
-class _SwipeableStackState extends State<SwipeableStack> {
+class SwipeableStackState extends State<SwipeableStack> {
   @override
   Widget build(BuildContext context) {
     return CardSwiper(

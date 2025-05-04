@@ -42,9 +42,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   // Define the pages for each tab
   final List<Widget> _pages = [
-    HomeContentWidget(),     // Your current Home content
-    SwipePageWidget(),       // Replace with your actual SwipePage widget
-    ProfilePageWidget(),     // Replace with your actual ProfilePage widget
+    const HomeContentWidget(),     // Your current Home content
+    const SwipePageWidget(),       // Replace with your actual SwipePage widget
+    const ProfilePageWidget(),     // Replace with your actual ProfilePage widget
   ];
 
   @override
