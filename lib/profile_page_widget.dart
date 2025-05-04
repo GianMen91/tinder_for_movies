@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tinder_for_movies/sign_in_widget.dart';
 
-
 class ProfilePageWidget extends StatefulWidget {
   const ProfilePageWidget({super.key});
 
@@ -15,18 +14,15 @@ class ProfilePageWidget extends StatefulWidget {
 }
 
 class _ProfilePageWidgetState extends State<ProfilePageWidget> {
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
   void dispose() {
-
     super.dispose();
   }
 
@@ -72,7 +68,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                       MaterialPageRoute(
                         builder: (context) => const SignInWidget(),
                       ),
-                          (route) => false,
+                      (route) => false,
                     );
                   },
                   style: ElevatedButton.styleFrom(

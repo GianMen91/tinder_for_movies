@@ -22,95 +22,109 @@ abstract class FlutterFlowTheme {
 
   // Reusable text styles
   static TextStyle get displayLarge => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.normal,
-    fontSize: 57.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 57.0,
+      );
+
   static TextStyle get displayMedium => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.normal,
-    fontSize: 45.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 45.0,
+      );
+
   static TextStyle get displaySmall => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.normal,
-    fontSize: 36.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 36.0,
+      );
+
   static TextStyle get headlineLarge => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.normal,
-    fontSize: 32.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 32.0,
+      );
+
   static TextStyle get headlineMedium => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.normal,
-    fontSize: 28.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 28.0,
+      );
+
   static TextStyle get headlineSmall => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.normal,
-    fontSize: 24.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 24.0,
+      );
+
   static TextStyle get titleLarge => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.w500,
-    fontSize: 22.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.w500,
+        fontSize: 22.0,
+      );
+
   static TextStyle get titleMedium => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.w500,
-    fontSize: 16.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.w500,
+        fontSize: 16.0,
+      );
+
   static TextStyle get titleSmall => const TextStyle(
-    fontFamily: 'Inter',
-    color: secondaryText,
-    fontWeight: FontWeight.w500,
-    fontSize: 14.0,
-  );
+        fontFamily: 'Inter',
+        color: secondaryText,
+        fontWeight: FontWeight.w500,
+        fontSize: 14.0,
+      );
+
   static TextStyle get labelLarge => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.w500,
-    fontSize: 14.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.w500,
+        fontSize: 14.0,
+      );
+
   static TextStyle get labelMedium => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.w500,
-    fontSize: 12.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.w500,
+        fontSize: 12.0,
+      );
+
   static TextStyle get labelSmall => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.w500,
-    fontSize: 11.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.w500,
+        fontSize: 11.0,
+      );
+
   static TextStyle get bodyLarge => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.normal,
-    fontSize: 16.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 16.0,
+      );
+
   static TextStyle get bodyMedium => const TextStyle(
-    fontFamily: 'Inter',
-    color: primaryText,
-    fontWeight: FontWeight.normal,
-    fontSize: 14.0,
-  );
+        fontFamily: 'Inter',
+        color: primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 14.0,
+      );
+
   static TextStyle get bodySmall => const TextStyle(
-    fontFamily: 'Inter',
-    color: secondaryText,
-    fontWeight: FontWeight.normal,
-    fontSize: 12.0,
-  );
+        fontFamily: 'Inter',
+        color: secondaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 12.0,
+      );
 }
 
 extension TextStyleHelper on TextStyle {

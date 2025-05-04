@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'movies_record.dart';
 
-
 class MovieDetailsWidget extends StatefulWidget {
   const MovieDetailsWidget({
     super.key,
@@ -22,26 +21,22 @@ class MovieDetailsWidget extends StatefulWidget {
 }
 
 class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Get current user reference
   DocumentReference? get currentUserReference =>
       FirebaseFirestore.instance.collection('users').doc(
-        /* Replace with your auth implementation */
-        // For example: FirebaseAuth.instance.currentUser?.uid
-      );
+          /* Replace with your auth implementation */
+          // For example: FirebaseAuth.instance.currentUser?.uid
+          );
 
   @override
   void initState() {
     super.initState();
-
-
   }
 
   @override
   void dispose() {
-
     super.dispose();
   }
 
@@ -129,12 +124,14 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 10),
                                 child: Text(
                                   movieDetailsMoviesRecord.title,
                                   style: GoogleFonts.interTight(
@@ -144,7 +141,8 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 10),
                                 child: Text(
                                   movieDetailsMoviesRecord.length,
                                   style: GoogleFonts.interTight(
@@ -154,7 +152,8 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 10),
                                 child: Text(
                                   movieDetailsMoviesRecord.year.toString(),
                                   style: GoogleFonts.interTight(
@@ -169,7 +168,8 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  await launchURL(movieDetailsMoviesRecord.trailerLink);
+                                  await launchURL(
+                                      movieDetailsMoviesRecord.trailerLink);
                                 },
                                 child: Text(
                                   'Watch Trailer',
@@ -185,24 +185,30 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                       ],
                     ),
                   ),
-                  if (movieDetailsMoviesRecord.likedByUsers.contains(currentUserReference) == false)
+                  if (movieDetailsMoviesRecord.likedByUsers
+                          .contains(currentUserReference) ==
+                      false)
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                       child: ElevatedButton(
                         onPressed: () async {
                           // Update the current user's my list
                           await currentUserReference?.update({
-                            'myList': FieldValue.arrayUnion([movieDetailsMoviesRecord.reference]),
+                            'myList': FieldValue.arrayUnion(
+                                [movieDetailsMoviesRecord.reference]),
                           });
 
                           // Update the movie's liked by users
                           await movieDetailsMoviesRecord.reference.update({
-                            'likedByUsers': FieldValue.arrayUnion([currentUserReference]),
+                            'likedByUsers':
+                                FieldValue.arrayUnion([currentUserReference]),
                           });
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF43474C),
-                          padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              16, 0, 16, 0),
                           minimumSize: const Size(double.infinity, 40),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
@@ -218,24 +224,30 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                         ),
                       ),
                     ),
-                  if (movieDetailsMoviesRecord.likedByUsers.contains(currentUserReference) == true)
+                  if (movieDetailsMoviesRecord.likedByUsers
+                          .contains(currentUserReference) ==
+                      true)
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                       child: ElevatedButton(
                         onPressed: () async {
                           // Remove from the current user's my list
                           await currentUserReference?.update({
-                            'myList': FieldValue.arrayRemove([movieDetailsMoviesRecord.reference]),
+                            'myList': FieldValue.arrayRemove(
+                                [movieDetailsMoviesRecord.reference]),
                           });
 
                           // Remove from the movie's liked by users
                           await movieDetailsMoviesRecord.reference.update({
-                            'likedByUsers': FieldValue.arrayRemove([currentUserReference]),
+                            'likedByUsers':
+                                FieldValue.arrayRemove([currentUserReference]),
                           });
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF43474C),
-                          padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              16, 0, 16, 0),
                           minimumSize: const Size(double.infinity, 40),
                           elevation: 0,
                           shape: RoundedRectangleBorder(

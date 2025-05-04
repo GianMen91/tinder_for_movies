@@ -4,6 +4,7 @@ import 'sign_up_widget.dart';
 // FlutterFlowModel replacement
 abstract class FlutterFlowModel<T extends StatefulWidget> {
   void initState(BuildContext context) {}
+
   void dispose() {}
 }
 
@@ -24,7 +25,8 @@ class SignUpModel extends FlutterFlowModel<SignUpWidget> {
   FocusNode? textFieldFocusNode3;
   TextEditingController? confirmPasswordTextController;
   late bool passwordVisibility2;
-  String? Function(BuildContext, String?)? confirmPasswordTextControllerValidator;
+  String? Function(BuildContext, String?)?
+      confirmPasswordTextControllerValidator;
 
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode4;

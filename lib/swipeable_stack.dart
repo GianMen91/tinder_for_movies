@@ -36,10 +36,11 @@ class _SwipeableStackState extends State<SwipeableStack> {
   @override
   Widget build(BuildContext context) {
     return CardSwiper(
-
       cardsCount: widget.itemCount,
-      cardBuilder: (context, index, percentThresholdX, percentThresholdY) => widget.itemBuilder(context, index),
-      onSwipe: (int previousIndex, int? currentIndex, CardSwiperDirection direction) {
+      cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
+          widget.itemBuilder(context, index),
+      onSwipe: (int previousIndex, int? currentIndex,
+          CardSwiperDirection direction) {
         widget.onSwipeFn?.call(previousIndex);
 
         switch (direction) {

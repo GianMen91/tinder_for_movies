@@ -37,6 +37,8 @@ class MoviesRecord {
   }
 
   static Stream<MoviesRecord> getDocument(DocumentReference documentReference) {
-    return documentReference.snapshots().map((snapshot) => MoviesRecord.fromSnapshot(snapshot));
+    return documentReference
+        .snapshots()
+        .map((snapshot) => MoviesRecord.fromSnapshot(snapshot));
   }
 }

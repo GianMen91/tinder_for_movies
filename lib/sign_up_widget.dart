@@ -6,16 +6,15 @@ import 'package:tinder_for_movies/home_page_widget.dart';
 import 'package:tinder_for_movies/sign_in_widget.dart';
 import 'package:tinder_for_movies/sign_up_model.dart';
 
-
 // Create an AuthManager to handle Firebase authentication
 class AuthManager {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<User?> createAccountWithEmail(
-      BuildContext context,
-      String email,
-      String password,
-      ) async {
+    BuildContext context,
+    String email,
+    String password,
+  ) async {
     try {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -119,7 +118,7 @@ class CustomButton extends StatelessWidget {
 // Record class to replace UsersRecord
 class UsersRecord {
   static final CollectionReference collection =
-  FirebaseFirestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('users');
 
   static Map<String, dynamic> createUsersRecordData({
     String? displayName,
@@ -133,14 +132,11 @@ class UsersRecord {
 
 // Helper function to safely set state
 void safeSetState(Function setState) {
-
-    setState();
-
+  setState();
 }
 
 class SignUpWidget extends StatefulWidget {
   const SignUpWidget({super.key});
-
 
   @override
   State<SignUpWidget> createState() => _SignUpWidgetState();
@@ -225,12 +221,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-
                         Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => const SignInWidget()));
-
-
+                            MaterialPageRoute(
+                                builder: (context) => const SignInWidget()));
                       },
                       child: Text(
                         'Sign In',
@@ -351,8 +345,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       filled: true,
                       suffixIcon: InkWell(
                         onTap: () => setState(
-                              () => _model.passwordVisibility1 =
-                          !_model.passwordVisibility1,
+                          () => _model.passwordVisibility1 =
+                              !_model.passwordVisibility1,
                         ),
                         focusNode: FocusNode(skipTraversal: true),
                         child: Icon(
@@ -417,8 +411,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       filled: true,
                       suffixIcon: InkWell(
                         onTap: () => setState(
-                              () => _model.passwordVisibility2 =
-                          !_model.passwordVisibility2,
+                          () => _model.passwordVisibility2 =
+                              !_model.passwordVisibility2,
                         ),
                         focusNode: FocusNode(skipTraversal: true),
                         child: Icon(
@@ -517,19 +511,21 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     await UsersRecord.collection
                         .doc(user.uid)
                         .set(UsersRecord.createUsersRecordData(
-                      displayName: _model.textController2!.text,
-                    ));
+                          displayName: _model.textController2!.text,
+                        ));
 
                     Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const HomePageWidget()));
+                        MaterialPageRoute(
+                            builder: (context) => const HomePageWidget()));
                   },
                   text: 'Sign Up',
                   options: ButtonOptions(
                     width: 100,
                     height: 40,
                     padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                    iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                     color: Colors.white,
                     textStyle: GoogleFonts.interTight(
                       color: Colors.black,

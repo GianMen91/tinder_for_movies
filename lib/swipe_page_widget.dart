@@ -4,32 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tinder_for_movies/swipeable_stack.dart';
 
-
 import 'movie_details_widget.dart';
 import 'movies_record.dart';
 
 class SwipePageWidget extends StatefulWidget {
   const SwipePageWidget({super.key});
 
-
-
   @override
   State<SwipePageWidget> createState() => _SwipePageWidgetState();
 }
 
 class _SwipePageWidgetState extends State<SwipePageWidget> {
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
   void dispose() {
-
     super.dispose();
   }
 
@@ -73,20 +67,17 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                         child: SizedBox(
                           width: 50,
                           height: 50,
-                          child: CircularProgressIndicator(
-
-                          ),
+                          child: CircularProgressIndicator(),
                         ),
                       );
                     }
                     List<MoviesRecord> swipeableStackMoviesRecordList =
-                    snapshot.data!;
+                        snapshot.data!;
 
                     return SwipeableStack(
                       onSwipeFn: (index) {},
                       onLeftSwipe: (index) {},
                       onRightSwipe: (index) async {
-
                         await currentUserReference!.update({
                           'myList': FieldValue.arrayUnion([
                             swipeableStackMoviesRecordList[index].reference
@@ -97,14 +88,14 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                             .reference
                             .update({
                           'likedByUsers':
-                          FieldValue.arrayUnion([currentUserReference]),
+                              FieldValue.arrayUnion([currentUserReference]),
                         });
                       },
                       onUpSwipe: (index) {},
                       onDownSwipe: (index) {},
                       itemBuilder: (context, swipeableStackIndex) {
                         final swipeableStackMoviesRecord =
-                        swipeableStackMoviesRecordList[swipeableStackIndex];
+                            swipeableStackMoviesRecordList[swipeableStackIndex];
                         return Container(
                           width: double.infinity,
                           height: 100,
@@ -141,21 +132,24 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                     20, 0, 20, 20),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       swipeableStackMoviesRecord.title,
                                       style: TextStyle(
-                                        fontFamily: GoogleFonts.interTight().fontFamily,
+                                        fontFamily:
+                                            GoogleFonts.interTight().fontFamily,
                                         color: Colors.white,
                                         fontSize: 18,
                                         letterSpacing: 0.0,
                                       ),
                                     ),
                                     Text(
-                                      swipeableStackMoviesRecord.year.toString(),
+                                      swipeableStackMoviesRecord.year
+                                          .toString(),
                                       style: TextStyle(
-                                        fontFamily: GoogleFonts.interTight().fontFamily,
+                                        fontFamily:
+                                            GoogleFonts.interTight().fontFamily,
                                         color: Colors.white,
                                         fontSize: 18,
                                         letterSpacing: 0.0,
@@ -170,16 +164,14 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                     20, 0, 20, 25),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
-                                      onTap: () async {
-
-                                      },
+                                      onTap: () async {},
                                       child: const Icon(
                                         Icons.thumb_down,
                                         color: Colors.white,
@@ -196,7 +188,9 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                           context,
                                           MovieDetailsWidget.routeName,
                                           arguments: {
-                                            'receiveMovie': swipeableStackMoviesRecord.reference,
+                                            'receiveMovie':
+                                                swipeableStackMoviesRecord
+                                                    .reference,
                                           },
                                         );
                                       },
@@ -211,9 +205,7 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
-                                      onTap: () async {
-
-                                      },
+                                      onTap: () async {},
                                       child: const Icon(
                                         Icons.thumb_up,
                                         color: Colors.white,
@@ -240,8 +232,6 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
   }
 }
 
-
-
 Stream<List<MoviesRecord>> queryMoviesRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,
@@ -261,5 +251,7 @@ Stream<List<MoviesRecord>> queryMoviesRecord({
 
 DocumentReference? get currentUserReference {
   User? user = FirebaseAuth.instance.currentUser;
-  return user != null ? FirebaseFirestore.instance.collection('users').doc(user.uid) : null;
+  return user != null
+      ? FirebaseFirestore.instance.collection('users').doc(user.uid)
+      : null;
 }

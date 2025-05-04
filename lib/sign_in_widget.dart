@@ -5,11 +5,8 @@ import 'package:tinder_for_movies/sign_up_widget.dart';
 
 import 'home_page_widget.dart';
 
-
 class SignInWidget extends StatefulWidget {
   const SignInWidget({super.key});
-
-
 
   @override
   State<SignInWidget> createState() => _SignInWidgetState();
@@ -60,8 +57,7 @@ class _SignInWidgetState extends State<SignInWidget> {
 
         // Navigate to home page on success
 
-        Navigator.pushReplacement(
-            context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const HomePageWidget()));
       } on FirebaseAuthException catch (e) {
         // Handle authentication errors
@@ -114,7 +110,8 @@ class _SignInWidgetState extends State<SignInWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                       child: Text(
                         'Sign In',
                         style: TextStyle(
@@ -125,19 +122,18 @@ class _SignInWidgetState extends State<SignInWidget> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-
                           Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => const SignUpWidget()));
-
-
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpWidget()));
                         },
                         child: Text(
                           'Sign Up',
@@ -198,7 +194,8 @@ class _SignInWidgetState extends State<SignInWidget> {
                       if (value == null || value.isEmpty) {
                         return 'Email cannot be empty';
                       }
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(value)) {
                         return 'Please enter a valid email';
                       }
                       return null;
@@ -245,7 +242,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                       filled: true,
                       suffixIcon: InkWell(
                         onTap: () => setState(
-                              () => passwordVisibility = !passwordVisibility,
+                          () => passwordVisibility = !passwordVisibility,
                         ),
                         focusNode: FocusNode(skipTraversal: true),
                         child: Icon(
@@ -281,7 +278,8 @@ class _SignInWidgetState extends State<SignInWidget> {
                       foregroundColor: Colors.black,
                       backgroundColor: Colors.white,
                       minimumSize: const Size(100, 40),
-                      padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
