@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:tinder_for_movies/swipeable_stack_controller.dart';
 
 class SwipeableStack extends StatefulWidget {
   const SwipeableStack({
@@ -14,6 +15,7 @@ class SwipeableStack extends StatefulWidget {
     this.loop = false,
     this.cardDisplayCount = 3,
     this.scale = 0.9,
+    this.controller, // Added controller parameter
   });
 
   final Widget Function(BuildContext, int) itemBuilder;
@@ -27,15 +29,37 @@ class SwipeableStack extends StatefulWidget {
   final bool loop;
   final int cardDisplayCount;
   final double scale;
+  final SwipeableStackController? controller; // Controller for programmatic swipes
 
   @override
   SwipeableStackState createState() => SwipeableStackState();
 }
 
 class SwipeableStackState extends State<SwipeableStack> {
+  // Create a CardSwiperController
+  late CardSwiperController _cardSwiperController;
+
+  @override
+  void initState() {
+    super.initState();
+    _cardSwiperController = CardSwiperController();
+
+    // Connect the controller if provided
+    if (widget.controller != null) {
+      widget.controller!.setCardSwiperController(_cardSwiperController);
+    }
+  }
+
+  @override
+  void dispose() {
+    _cardSwiperController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CardSwiper(
+      controller: _cardSwiperController, // Pass the controller to CardSwiper
       cardsCount: widget.itemCount,
       cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
           widget.itemBuilder(context, index),

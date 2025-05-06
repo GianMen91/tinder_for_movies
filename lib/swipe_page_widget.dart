@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tinder_for_movies/swipeable_stack.dart';
+import 'package:tinder_for_movies/swipeable_stack.dart'; // Original SwipeableStack
+import 'package:tinder_for_movies/swipeable_stack_controller.dart'; // Separate controller file
 
 import 'movie_details_widget.dart';
 import 'movies_record.dart';
@@ -16,14 +17,12 @@ class SwipePageWidget extends StatefulWidget {
 
 class _SwipePageWidgetState extends State<SwipePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  // Add a controller for the swipeable stack
+  final SwipeableStackController swipeController = SwipeableStackController();
 
   @override
   void dispose() {
+    swipeController.dispose();
     super.dispose();
   }
 
@@ -72,12 +71,17 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                       );
                     }
                     List<MoviesRecord> swipeableStackMoviesRecordList =
-                        snapshot.data!;
+                    snapshot.data!;
 
                     return SwipeableStack(
+                      controller: swipeController, // Pass the controller
                       onSwipeFn: (index) {},
-                      onLeftSwipe: (index) {},
+                      onLeftSwipe: (index) {
+                        // Handle left swipe (dislike)
+                        print('Disliked movie: ${swipeableStackMoviesRecordList[index].title}');
+                      },
                       onRightSwipe: (index) async {
+                        // Handle right swipe (like)
                         await currentUserReference!.update({
                           'myList': FieldValue.arrayUnion([
                             swipeableStackMoviesRecordList[index].reference
@@ -88,14 +92,16 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                             .reference
                             .update({
                           'likedByUsers':
-                              FieldValue.arrayUnion([currentUserReference]),
+                          FieldValue.arrayUnion([currentUserReference]),
                         });
+
+                        print('Liked movie: ${swipeableStackMoviesRecordList[index].title}');
                       },
                       onUpSwipe: (index) {},
                       onDownSwipe: (index) {},
                       itemBuilder: (context, swipeableStackIndex) {
                         final swipeableStackMoviesRecord =
-                            swipeableStackMoviesRecordList[swipeableStackIndex];
+                        swipeableStackMoviesRecordList[swipeableStackIndex];
                         return Container(
                           width: double.infinity,
                           height: 100,
@@ -132,13 +138,13 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                     20, 0, 20, 20),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       swipeableStackMoviesRecord.title,
                                       style: TextStyle(
                                         fontFamily:
-                                            GoogleFonts.interTight().fontFamily,
+                                        GoogleFonts.interTight().fontFamily,
                                         color: Colors.white,
                                         fontSize: 18,
                                         letterSpacing: 0.0,
@@ -149,7 +155,7 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                           .toString(),
                                       style: TextStyle(
                                         fontFamily:
-                                            GoogleFonts.interTight().fontFamily,
+                                        GoogleFonts.interTight().fontFamily,
                                         color: Colors.white,
                                         fontSize: 18,
                                         letterSpacing: 0.0,
@@ -164,14 +170,17 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                     20, 0, 20, 25),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
                                     InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
-                                      onTap: () async {},
+                                      onTap: () async {
+                                        // Trigger left swipe animation (dislike)
+                                        swipeController.swipeLeft();
+                                      },
                                       child: const Icon(
                                         Icons.thumb_down,
                                         color: Colors.white,
@@ -189,9 +198,9 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 MovieDetailsWidget(
-                                                   receiveMovie: swipeableStackMoviesRecord
-                                                    .reference,
-                                            ),
+                                                  receiveMovie: swipeableStackMoviesRecord
+                                                      .reference,
+                                                ),
                                           ),
                                         );
                                       },
@@ -206,7 +215,24 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
-                                      onTap: () async {},
+                                      onTap: () async {
+                                        // First perform the database operations
+                                        await currentUserReference!.update({
+                                          'myList': FieldValue.arrayUnion([
+                                            swipeableStackMoviesRecordList[swipeableStackIndex].reference
+                                          ]),
+                                        });
+
+                                        await swipeableStackMoviesRecordList[swipeableStackIndex]
+                                            .reference
+                                            .update({
+                                          'likedByUsers':
+                                          FieldValue.arrayUnion([currentUserReference]),
+                                        });
+
+                                        // Then trigger the right swipe animation
+                                        swipeController.swipeRight();
+                                      },
                                       child: const Icon(
                                         Icons.thumb_up,
                                         color: Colors.white,

@@ -53,7 +53,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       key: scaffoldKey,
       body: _pages[_currentIndex], // Display selected tab
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black26,
+        backgroundColor:  Color(0xFF303032),
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
