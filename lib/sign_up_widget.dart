@@ -258,6 +258,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     focusNode: _model.textFieldFocusNode1,
                     decoration: InputDecoration(
                       isDense: true,
+                      fillColor: Colors.transparent,
                       labelStyle: GoogleFonts.inter(
                         letterSpacing: 0.0,
                       ),
@@ -310,6 +311,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     obscureText: !_model.passwordVisibility1,
                     decoration: InputDecoration(
                       isDense: true,
+                      fillColor: Colors.transparent,
                       labelStyle: GoogleFonts.inter(
                         letterSpacing: 0.0,
                       ),
@@ -376,6 +378,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     obscureText: !_model.passwordVisibility2,
                     decoration: InputDecoration(
                       isDense: true,
+                      fillColor: Colors.transparent,
                       labelStyle: GoogleFonts.inter(
                         letterSpacing: 0.0,
                       ),
@@ -441,6 +444,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     focusNode: _model.textFieldFocusNode4,
                     decoration: InputDecoration(
                       isDense: true,
+                      fillColor: Colors.transparent,
                       labelStyle: GoogleFonts.inter(
                         letterSpacing: 0.0,
                       ),

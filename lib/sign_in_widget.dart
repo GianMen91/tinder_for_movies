@@ -152,7 +152,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                   child: TextFormField(
                     controller: emailTextController,
                     focusNode: textFieldFocusNode1,
+
                     decoration: InputDecoration(
+                      fillColor: Colors.transparent,
                       isDense: true,
                       hintText: 'email',
                       hintStyle: TextStyle(
@@ -209,6 +211,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     focusNode: textFieldFocusNode2,
                     obscureText: !passwordVisibility,
                     decoration: InputDecoration(
+                      fillColor: Colors.transparent,
                       isDense: true,
                       hintText: 'password',
                       hintStyle: TextStyle(
