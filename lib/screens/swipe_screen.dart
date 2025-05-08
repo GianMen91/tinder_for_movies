@@ -52,7 +52,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
       'myList': FieldValue.arrayUnion([movie.reference]),
     });
 
-    await movie.reference.update({
+    await movie.reference?.update({
       'likedByUsers': FieldValue.arrayUnion([userRef]),
     });
 

@@ -38,7 +38,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     await _currentUserRef?.update({
       'myList': FieldValue.arrayUnion([movie.reference]),
     });
-    await movie.reference.update({
+    await movie.reference?.update({
       'likedByUsers': FieldValue.arrayUnion([_currentUserRef]),
     });
   }
@@ -47,7 +47,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     await _currentUserRef?.update({
       'myList': FieldValue.arrayRemove([movie.reference]),
     });
-    await movie.reference.update({
+    await movie.reference?.update({
       'likedByUsers': FieldValue.arrayRemove([_currentUserRef]),
     });
   }

@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tinder_for_movies/screens/sign_in_screen.dart';
 
 import '../models/user_record.dart';
 import '../repository/auth_manager.dart';
+import '../widgets/navigation_row.dart';
 import 'home_page_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -117,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 _buildLogo(),
                 const SizedBox(height: 20),
-                _buildNavigationRow(context),
+                const NavigationRow(isFromSignIn: false),
                 const SizedBox(height: 20),
                 _buildTextField(
                   controller: _emailController,
@@ -170,43 +169,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         fontWeight: FontWeight.bold,
       ),
     ));
-  }
-
-  Widget _buildNavigationRow(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildNavButton(
-          text: 'Sign In',
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const SignInScreen()),
-            );
-          },
-        ),
-        Text(
-          'Sign Up',
-          style: GoogleFonts.interTight(
-            color: Colors.white,
-            fontSize: 30,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildNavButton({required String text, required VoidCallback onTap}) {
-    return InkWell(
-      onTap: onTap,
-      child: Text(
-        text,
-        style: GoogleFonts.interTight(
-          color: const Color(0xFF787777),
-          fontSize: 30,
-        ),
-      ),
-    );
   }
 
   Widget _buildTextField({

@@ -8,7 +8,7 @@ class MoviesRecord {
   final int year;
   final String trailerLink;
   final List<DocumentReference> likedByUsers;
-  final DocumentReference reference;
+  final DocumentReference? reference;
 
   MoviesRecord({
     required this.title,

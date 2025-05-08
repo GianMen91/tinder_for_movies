@@ -7,7 +7,6 @@ import '../models/movies_record.dart';
 import '../models/user_record.dart';
 import '../widgets/movie_list_section.dart';
 import '../widgets/movie_section.dart';
-import 'movie_details_screen.dart';
 
 class MoviesListScreen extends StatefulWidget {
   const MoviesListScreen({super.key});

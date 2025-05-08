@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tinder_for_movies/screens/sign_up_screen.dart';
+import '../widgets/navigation_row.dart';
 import 'home_page_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -104,7 +104,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                 ),
-                _buildNavigationRow(),
+                const NavigationRow(isFromSignIn: true),
                 const SizedBox(height: 20),
                 _buildEmailTextField(),
                 _buildPasswordTextField(),
@@ -237,47 +237,4 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 }
 
-class _buildNavigationRow extends StatelessWidget {
-  const _buildNavigationRow({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 40),
-          child: Text(
-            'Sign In',
-            style: TextStyle(
-              fontFamily: GoogleFonts.interTight().fontFamily,
-              color: Colors.white,
-              fontSize: 30,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 40),
-          child: InkWell(
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const SignUpScreen()),
-              );
-            },
-            child: Text(
-              'Sign Up',
-              style: TextStyle(
-                fontFamily: GoogleFonts.interTight().fontFamily,
-                color: const Color(0xFF787777),
-                fontSize: 30,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}

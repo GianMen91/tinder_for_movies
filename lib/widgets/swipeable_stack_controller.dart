@@ -11,7 +11,7 @@ class SwipeableStackController {
   void swipeLeft() {
     try {
       _cardSwiperController?.swipeLeft();
-    } catch (e) {
+    } on Exception catch (e) {
       if (kDebugMode) print("Error swiping left: $e");
     }
   }
@@ -19,7 +19,7 @@ class SwipeableStackController {
   void swipeRight() {
     try {
       _cardSwiperController?.swipeRight();
-    } catch (e) {
+    } on Exception catch (e) {
       if (kDebugMode) print("Error swiping right: $e");
     }
   }
@@ -27,7 +27,7 @@ class SwipeableStackController {
   void swipeUp() {
     try {
       _cardSwiperController?.swipeTop();
-    } catch (e) {
+    } on Exception catch (e) {
       if (kDebugMode) print("Error swiping up: $e");
     }
   }
@@ -35,7 +35,7 @@ class SwipeableStackController {
   void swipeDown() {
     try {
       _cardSwiperController?.swipeBottom();
-    } catch (e) {
+    } on Exception catch (e) {
       if (kDebugMode) print("Error swiping down: $e");
     }
   }
