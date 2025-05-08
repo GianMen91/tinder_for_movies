@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Tinder for Movies** is a Flutter application that allows users to discover movies in an engaging, Tinder-like experience. Users can swipe right to add movies to their favorites or swipe left to skip them. The app features Firebase Authentication for secure login and logout, and stores user preferences in Firestore. The interface includes a horizontally scrollable movie list organized by categories (All, Favourites, Drama, Action), and a swipe interface to quickly interact with movie suggestions.
+Tinder for Movies is a **Flutter** application that allows users to discover movies in an engaging, Tinder-like experience. Users can swipe right to add movies to their favorites or swipe left to skip them. The app features **Firebase Authentication** for secure login and logout, and stores user preferences in **Firestore**. The interface includes a horizontally scrollable movie list organized by categories (All, My List, Drama, Action), and a swipe interface to quickly interact with movie suggestions.
 
 ## Screenshots
 
@@ -12,7 +12,7 @@
 ## Features
 
 - **Firebase Authentication**: Secure login/logout experience.
-- **Bottom Navigation Menu**: Easy navigation between Movies and Profile views.
+- **Bottom Navigation Menu**: Easy navigation between pages.
 - **Movie List**:
     - Horizontally scrollable sections:
         - All Movies
@@ -23,29 +23,9 @@
     - **Swipe Right / Thumbs Up** → Add to Favorites.
     - **Swipe Left / Thumbs Down** → Skip movie.
 - **Profile View**:
-    - Displays basic user information.
-    - Logout functionality.
+    - Simple view with logout functionality.
 - **Widgetbook Integration**:
     - Streamlined development and testing of UI components.
-
-## App Architecture
-
-The app is designed with clean separation of concerns using service-based logic:
-
-### 1. Authentication and User Management
-- Handled using Firebase Authentication.
-- Auth state changes reflect instantly in the UI.
-
-### 2. Firestore Integration
-- Movie preferences (favorites) are saved per user.
-- Firestore is queried and filtered by genre/category in real time.
-
-### 3. Navigation
-- Bottom navigation bar manages view switching between movies list, tinder-Like swipe screen and profile/logout.
-
-### 4. Tinder-Like Swipe Interface
-- Custom swipe widgets to interact with movies.
-- Integrated animations and gesture detection.
 
 ## Technologies Used
 
