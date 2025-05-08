@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/movies_record.dart';
 import '../models/user_record.dart';
+import '../widgets/movie_list_section.dart';
+import '../widgets/movie_section.dart';
 import 'movie_details_screen.dart';
 
 class MoviesListScreen extends StatefulWidget {
@@ -44,12 +46,15 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
   }) {
     return queryBuilder(FirebaseFirestore.instance.collection('movies'))
         .snapshots()
-        .map((snapshot) {
-      return snapshot.docs
-          .map((doc) => MoviesRecord.fromSnapshot(doc))
-          .toList();
-    });
+        .map((snapshot) =>
+        snapshot.docs.map((doc) => MoviesRecord.fromSnapshot(doc)).toList());
   }
+
+  TextStyle get sectionTitleStyle => TextStyle(
+    fontFamily: GoogleFonts.interTight().fontFamily,
+    color: Colors.white,
+    fontSize: 17,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +80,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Welcome Text
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 0, 0),
                 child: StreamBuilder<DocumentSnapshot>(
@@ -83,38 +89,17 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                       .doc(currentUser?.uid)
                       .snapshots(),
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text(
-                        'Loading...',
-                        style: TextStyle(
-                          fontFamily: GoogleFonts.interTight().fontFamily,
-                          color: Colors.white,
-                          fontSize: 27,
-                        ),
-                      );
-                    }
-
-                    if (snapshot.hasError ||
-                        !snapshot.hasData ||
-                        !snapshot.data!.exists) {
-                      return Text(
-                        'Welcome back',
-                        style: TextStyle(
-                          fontFamily: GoogleFonts.interTight().fontFamily,
-                          color: Colors.white,
-                          fontSize: 27,
-                        ),
-                      );
-                    }
-
-                    final data = snapshot.data!.data() as Map<String, dynamic>;
-                    final displayName = data['display_name'] ?? '';
+                    final name = snapshot.data?.data()
+                    as Map<String, dynamic>? ?? {};
+                    final displayName = name['display_name'] ?? '';
 
                     return Text(
-                      'Welcome back, $displayName',
+                      displayName.isNotEmpty
+                          ? 'Welcome back, $displayName'
+                          : 'Welcome back',
                       style: TextStyle(
                         fontFamily: GoogleFonts.interTight().fontFamily,
-                        color: const Color(0xFFFEFEFE),
+                        color: Colors.white,
                         fontSize: 27,
                       ),
                     );
@@ -122,7 +107,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                 ),
               ),
 
-              // My List Section
+              // My List
               StreamBuilder<DocumentSnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('users')
@@ -133,352 +118,32 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                     return const SizedBox();
                   }
 
-                  final data = snapshot.data!.data() as Map<String, dynamic>;
-                  final myList =
-                      List<DocumentReference>.from(data['myList'] ?? []);
+                  final data =
+                      snapshot.data!.data() as Map<String, dynamic>? ?? {};
+                  final myList = List<DocumentReference>.from(data['myList'] ?? []);
 
-                  if (myList.isEmpty) {
-                    return const SizedBox();
-                  }
+                  if (myList.isEmpty) return const SizedBox();
 
-                  return Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                          child: Text(
-                            'My List',
-                            style: TextStyle(
-                              fontFamily: GoogleFonts.interTight().fontFamily,
-                              color: Colors.white,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: 143,
-                            child: ListView.separated(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: myList.length,
-                              separatorBuilder: (_, __) =>
-                                  const SizedBox(width: 10),
-                              itemBuilder: (context, index) {
-                                final movieRef = myList[index];
-                                return StreamBuilder<MoviesRecord>(
-                                  stream: MoviesRecord.getDocument(movieRef),
-                                  builder: (context, snapshot) {
-                                    if (!snapshot.hasData) {
-                                      return const Center(
-                                        child: SizedBox(
-                                          width: 50,
-                                          height: 50,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              Colors.red,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }
-
-                                    final movie = snapshot.data!;
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MovieDetailsScreen(
-                                                  movieReference: movie.reference,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          movie.image,
-                                          width: 100,
-                                          height: 200,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  return MovieListSection(
+                    title: 'My List',
+                    movieReferences: myList,
                   );
                 },
               ),
 
-              // All Movies Section
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                      child: Text(
-                        'All movies',
-                        style: TextStyle(
-                          fontFamily: GoogleFonts.interTight().fontFamily,
-                          color: Colors.white,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: 143,
-                        child: StreamBuilder<List<MoviesRecord>>(
-                          stream: queryMoviesRecord(
-                            queryBuilder: (query) =>
-                                query.orderBy('year', descending: true),
-                          ),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.red,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-
-                            List<MoviesRecord> movies = snapshot.data!;
-                            return ListView.separated(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: movies.length,
-                              separatorBuilder: (_, __) =>
-                                  const SizedBox(width: 10),
-                              itemBuilder: (context, index) {
-                                final movie = movies[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            MovieDetailsScreen(
-                                              movieReference: movie.reference,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      movie.image,
-                                      width: 100,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              // Other Categories
+              MovieSection(
+                title: 'All movies',
+                queryBuilder: (q) => q.orderBy('year', descending: true),
               ),
-
-              // Drama Section
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                      child: Text(
-                        'Drama',
-                        style: TextStyle(
-                          fontFamily: GoogleFonts.interTight().fontFamily,
-                          color: Colors.white,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: 143,
-                        child: StreamBuilder<List<MoviesRecord>>(
-                          stream: queryMoviesRecord(
-                            queryBuilder: (query) =>
-                                query.where('genre', isEqualTo: 'Drama'),
-                          ),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.red,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-
-                            List<MoviesRecord> movies = snapshot.data!;
-                            return ListView.separated(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: movies.length,
-                              separatorBuilder: (_, __) =>
-                                  const SizedBox(width: 10),
-                              itemBuilder: (context, index) {
-                                final movie = movies[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            MovieDetailsScreen(
-                                              movieReference: movie.reference,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      movie.image,
-                                      width: 100,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              MovieSection(
+                title: 'Drama',
+                queryBuilder: (q) => q.where('genre', isEqualTo: 'Drama'),
               ),
-
-              // Action Section
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                      child: Text(
-                        'Action',
-                        style: TextStyle(
-                          fontFamily: GoogleFonts.interTight().fontFamily,
-                          color: Colors.white,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: 143,
-                        child: StreamBuilder<List<MoviesRecord>>(
-                          stream: queryMoviesRecord(
-                            queryBuilder: (query) =>
-                                query.where('genre', isEqualTo: 'Action'),
-                          ),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.red,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-
-                            List<MoviesRecord> movies = snapshot.data!;
-                            return ListView.separated(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: movies.length,
-                              separatorBuilder: (_, __) =>
-                                  const SizedBox(width: 10),
-                              itemBuilder: (context, index) {
-                                final movie = movies[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            MovieDetailsScreen(
-                                              movieReference: movie.reference,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      movie.image,
-                                      width: 100,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              MovieSection(
+                title: 'Action',
+                queryBuilder: (q) => q.where('genre', isEqualTo: 'Action'),
+                bottomPadding: 20,
               ),
             ],
           ),
@@ -487,3 +152,11 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+

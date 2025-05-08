@@ -58,9 +58,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       stream: MoviesRecord.getDocument(widget.movieReference!),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Scaffold(
+          return const Scaffold(
             backgroundColor: Colors.black,
-            body: const Center(
+            body: Center(
               child: SizedBox(
                 width: 50,
                 height: 50,
