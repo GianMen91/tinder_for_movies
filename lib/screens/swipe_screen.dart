@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 import '../models/movies_record.dart';
 import 'movie_details_screen.dart';
-
 
 class SwipeableStack extends StatefulWidget {
   const SwipeableStack({
@@ -37,7 +35,8 @@ class SwipeableStack extends StatefulWidget {
   final bool loop;
   final int cardDisplayCount;
   final double scale;
-  final SwipeableStackController? controller; // Controller for programmatic swipes
+  final SwipeableStackController?
+      controller; // Controller for programmatic swipes
 
   @override
   SwipeableStackState createState() => SwipeableStackState();
@@ -67,7 +66,8 @@ class SwipeableStackState extends State<SwipeableStack> {
   @override
   Widget build(BuildContext context) {
     return CardSwiper(
-      controller: _cardSwiperController, // Pass the controller to CardSwiper
+      controller: _cardSwiperController,
+      // Pass the controller to CardSwiper
       cardsCount: widget.itemCount,
       cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
           widget.itemBuilder(context, index),
@@ -102,7 +102,6 @@ class SwipeableStackState extends State<SwipeableStack> {
   }
 }
 
-
 class SwipeScreen extends StatefulWidget {
   const SwipeScreen({super.key});
 
@@ -112,6 +111,7 @@ class SwipeScreen extends StatefulWidget {
 
 class _SwipeScreenState extends State<SwipeScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   // Add a controller for the swipeable stack
   final SwipeableStackController swipeController = SwipeableStackController();
 
@@ -166,15 +166,17 @@ class _SwipeScreenState extends State<SwipeScreen> {
                       );
                     }
                     List<MoviesRecord> swipeableStackMoviesRecordList =
-                    snapshot.data!;
+                        snapshot.data!;
 
                     return SwipeableStack(
-                      controller: swipeController, // Pass the controller
+                      controller: swipeController,
+                      // Pass the controller
                       onSwipeFn: (index) {},
                       onLeftSwipe: (index) {
                         // Handle left swipe (dislike)
                         if (kDebugMode) {
-                          print('Disliked movie: ${swipeableStackMoviesRecordList[index].title}');
+                          print(
+                              'Disliked movie: ${swipeableStackMoviesRecordList[index].title}');
                         }
                       },
                       onRightSwipe: (index) async {
@@ -189,18 +191,19 @@ class _SwipeScreenState extends State<SwipeScreen> {
                             .reference
                             .update({
                           'likedByUsers':
-                          FieldValue.arrayUnion([currentUserReference]),
+                              FieldValue.arrayUnion([currentUserReference]),
                         });
 
                         if (kDebugMode) {
-                          print('Liked movie: ${swipeableStackMoviesRecordList[index].title}');
+                          print(
+                              'Liked movie: ${swipeableStackMoviesRecordList[index].title}');
                         }
                       },
                       onUpSwipe: (index) {},
                       onDownSwipe: (index) {},
                       itemBuilder: (context, swipeableStackIndex) {
                         final swipeableStackMoviesRecord =
-                        swipeableStackMoviesRecordList[swipeableStackIndex];
+                            swipeableStackMoviesRecordList[swipeableStackIndex];
                         return Container(
                           width: double.infinity,
                           height: 100,
@@ -237,13 +240,13 @@ class _SwipeScreenState extends State<SwipeScreen> {
                                     20, 0, 20, 20),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       swipeableStackMoviesRecord.title,
                                       style: TextStyle(
                                         fontFamily:
-                                        GoogleFonts.interTight().fontFamily,
+                                            GoogleFonts.interTight().fontFamily,
                                         color: Colors.white,
                                         fontSize: 18,
                                         letterSpacing: 0.0,
@@ -254,7 +257,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                                           .toString(),
                                       style: TextStyle(
                                         fontFamily:
-                                        GoogleFonts.interTight().fontFamily,
+                                            GoogleFonts.interTight().fontFamily,
                                         color: Colors.white,
                                         fontSize: 18,
                                         letterSpacing: 0.0,
@@ -269,7 +272,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                                     20, 0, 20, 25),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     InkWell(
                                       splashColor: Colors.transparent,
@@ -297,9 +300,10 @@ class _SwipeScreenState extends State<SwipeScreen> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 MovieDetailsScreen(
-                                                  receiveMovie: swipeableStackMoviesRecord
+                                              receiveMovie:
+                                                  swipeableStackMoviesRecord
                                                       .reference,
-                                                ),
+                                            ),
                                           ),
                                         );
                                       },
@@ -318,15 +322,18 @@ class _SwipeScreenState extends State<SwipeScreen> {
                                         // First perform the database operations
                                         await currentUserReference!.update({
                                           'myList': FieldValue.arrayUnion([
-                                            swipeableStackMoviesRecordList[swipeableStackIndex].reference
+                                            swipeableStackMoviesRecordList[
+                                                    swipeableStackIndex]
+                                                .reference
                                           ]),
                                         });
 
-                                        await swipeableStackMoviesRecordList[swipeableStackIndex]
+                                        await swipeableStackMoviesRecordList[
+                                                swipeableStackIndex]
                                             .reference
                                             .update({
-                                          'likedByUsers':
-                                          FieldValue.arrayUnion([currentUserReference]),
+                                          'likedByUsers': FieldValue.arrayUnion(
+                                              [currentUserReference]),
                                         });
 
                                         // Then trigger the right swipe animation
@@ -402,8 +409,6 @@ class SwipeableStackController {
       }
     }
   }
-
-
 
   void swipeRight() {
     if (_cardSwiperController != null) {

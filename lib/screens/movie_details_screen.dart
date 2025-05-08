@@ -14,7 +14,6 @@ class MovieDetailsScreen extends StatefulWidget {
 
   final DocumentReference? receiveMovie;
 
-
   @override
   State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
 }

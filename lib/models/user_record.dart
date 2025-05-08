@@ -4,7 +4,7 @@ class UserRecord {
   final String displayName;
   final List<DocumentReference> myList;
   static final CollectionReference collection =
-  FirebaseFirestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('users');
 
   UserRecord({
     required this.displayName,

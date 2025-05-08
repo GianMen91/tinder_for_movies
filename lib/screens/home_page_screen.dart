@@ -4,10 +4,6 @@ import 'package:tinder_for_movies/screens/profile_screen.dart';
 
 import 'package:tinder_for_movies/screens/swipe_screen.dart';
 
-
-
-
-
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
 
@@ -21,9 +17,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   // Define the pages for each tab
   final List<Widget> _pages = [
-    const MoviesListScreen(),     // Your current Home content
-    const SwipeScreen(),       // Replace with your actual SwipePage widget
-    const ProfileScreen(),     // Replace with your actual ProfilePage widget
+    const MoviesListScreen(), // Your current Home content
+    const SwipeScreen(), // Replace with your actual SwipePage widget
+    const ProfileScreen(), // Replace with your actual ProfilePage widget
   ];
 
   @override
@@ -32,7 +28,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       key: scaffoldKey,
       body: _pages[_currentIndex], // Display selected tab
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:  const Color(0xFF303032),
+        backgroundColor: const Color(0xFF303032),
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -61,7 +57,3 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 }
-
-
-
-

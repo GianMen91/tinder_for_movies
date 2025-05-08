@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tinder_for_movies/screens/sign_in_screen.dart';
 
-
 import '../models/user_record.dart';
 import 'home_page_screen.dart';
 
@@ -31,8 +30,6 @@ class AuthManager {
     }
   }
 }
-
-
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -270,7 +267,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       filled: true,
                       suffixIcon: InkWell(
                         onTap: () => setState(
-                              () => passwordVisibility = !passwordVisibility,
+                          () => passwordVisibility = !passwordVisibility,
                         ),
                         focusNode: FocusNode(skipTraversal: true),
                         child: Icon(
@@ -339,7 +336,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       filled: true,
                       suffixIcon: InkWell(
                         onTap: () => setState(
-                              () => confirmPasswordVisibility = !confirmPasswordVisibility,
+                          () => confirmPasswordVisibility =
+                              !confirmPasswordVisibility,
                         ),
                         focusNode: FocusNode(skipTraversal: true),
                         child: Icon(
@@ -483,5 +481,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-
 }

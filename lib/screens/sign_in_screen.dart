@@ -5,8 +5,6 @@ import 'package:tinder_for_movies/screens/sign_up_screen.dart';
 
 import 'home_page_screen.dart';
 
-
-
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -58,7 +56,6 @@ class _SignInScreenState extends State<SignInScreen> {
         );
 
         // Navigate to home page on success
-
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const HomePageScreen()));
       } on FirebaseAuthException catch (e) {
@@ -154,7 +151,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: TextFormField(
                     controller: emailTextController,
                     focusNode: textFieldFocusNode1,
-
                     decoration: InputDecoration(
                       fillColor: Colors.transparent,
                       isDense: true,

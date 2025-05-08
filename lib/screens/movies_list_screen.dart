@@ -3,13 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 import '../models/movies_record.dart';
 import '../models/user_record.dart';
 import 'movie_details_screen.dart';
-
-
-
 
 class MoviesListScreen extends StatefulWidget {
   const MoviesListScreen({super.key});
@@ -19,7 +15,6 @@ class MoviesListScreen extends StatefulWidget {
 }
 
 class _MoviesListScreenState extends State<MoviesListScreen> {
-
   User? currentUser;
   UserRecord? userRecord;
 
@@ -112,8 +107,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                       );
                     }
 
-                    final data =
-                    snapshot.data!.data() as Map<String, dynamic>;
+                    final data = snapshot.data!.data() as Map<String, dynamic>;
                     final displayName = data['display_name'] ?? '';
 
                     return Text(
@@ -141,21 +135,20 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
 
                   final data = snapshot.data!.data() as Map<String, dynamic>;
                   final myList =
-                  List<DocumentReference>.from(data['myList'] ?? []);
+                      List<DocumentReference>.from(data['myList'] ?? []);
 
                   if (myList.isEmpty) {
                     return const SizedBox();
                   }
 
                   return Padding(
-                    padding:
-                    const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                           child: Text(
                             'My List',
                             style: TextStyle(
@@ -166,19 +159,18 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0, 7, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 143,
                             child: ListView.separated(
-                              padding:
-                              const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: myList.length,
                               separatorBuilder: (_, __) =>
-                              const SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                               itemBuilder: (context, index) {
                                 final movieRef = myList[index];
                                 return StreamBuilder<MoviesRecord>(
@@ -191,7 +183,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                                           height: 50,
                                           child: CircularProgressIndicator(
                                             valueColor:
-                                            AlwaysStoppedAnimation<Color>(
+                                                AlwaysStoppedAnimation<Color>(
                                               Colors.red,
                                             ),
                                           ),
@@ -207,15 +199,13 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 MovieDetailsScreen(
-                                                  receiveMovie: movie.reference,
-                                                ),
+                                              receiveMovie: movie.reference,
+                                            ),
                                           ),
                                         );
-
                                       },
                                       child: ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(10),
                                         child: Image.network(
                                           movie.image,
                                           width: 100,
@@ -244,7 +234,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                   children: [
                     Padding(
                       padding:
-                      const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                          const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                       child: Text(
                         'All movies',
                         style: TextStyle(
@@ -255,8 +245,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                       ),
                     ),
                     Padding(
-                      padding:
-                      const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: 143,
@@ -282,13 +271,12 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
 
                             List<MoviesRecord> movies = snapshot.data!;
                             return ListView.separated(
-                              padding:
-                              const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: movies.length,
                               separatorBuilder: (_, __) =>
-                              const SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                               itemBuilder: (context, index) {
                                 final movie = movies[index];
                                 return GestureDetector(
@@ -298,8 +286,8 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             MovieDetailsScreen(
-                                              receiveMovie: movie.reference,
-                                            ),
+                                          receiveMovie: movie.reference,
+                                        ),
                                       ),
                                     );
                                   },
@@ -331,7 +319,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                   children: [
                     Padding(
                       padding:
-                      const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                          const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                       child: Text(
                         'Drama',
                         style: TextStyle(
@@ -342,8 +330,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                       ),
                     ),
                     Padding(
-                      padding:
-                      const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: 143,
@@ -369,13 +356,12 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
 
                             List<MoviesRecord> movies = snapshot.data!;
                             return ListView.separated(
-                              padding:
-                              const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: movies.length,
                               separatorBuilder: (_, __) =>
-                              const SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                               itemBuilder: (context, index) {
                                 final movie = movies[index];
                                 return GestureDetector(
@@ -385,8 +371,8 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             MovieDetailsScreen(
-                                              receiveMovie: movie.reference,
-                                            ),
+                                          receiveMovie: movie.reference,
+                                        ),
                                       ),
                                     );
                                   },
@@ -418,7 +404,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                   children: [
                     Padding(
                       padding:
-                      const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                          const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                       child: Text(
                         'Action',
                         style: TextStyle(
@@ -429,8 +415,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                       ),
                     ),
                     Padding(
-                      padding:
-                      const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: 143,
@@ -456,13 +441,12 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
 
                             List<MoviesRecord> movies = snapshot.data!;
                             return ListView.separated(
-                              padding:
-                              const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: movies.length,
                               separatorBuilder: (_, __) =>
-                              const SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                               itemBuilder: (context, index) {
                                 final movie = movies[index];
                                 return GestureDetector(
@@ -472,8 +456,8 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             MovieDetailsScreen(
-                                              receiveMovie: movie.reference,
-                                            ),
+                                          receiveMovie: movie.reference,
+                                        ),
                                       ),
                                     );
                                   },
@@ -500,7 +484,6 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
           ),
         ),
       ),
-
     );
   }
 }
