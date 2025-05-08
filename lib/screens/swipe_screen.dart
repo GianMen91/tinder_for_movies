@@ -168,7 +168,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: AppLogo(),
+          title: const AppLogo(),
           centerTitle: true,
           elevation: 2,
         ),
