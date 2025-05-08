@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tinder_for_movies/swipeable_stack.dart'; // Original SwipeableStack
-import 'package:tinder_for_movies/swipeable_stack_controller.dart'; // Separate controller file
 
 import 'movie_details_widget.dart';
 import 'movies_record.dart';
