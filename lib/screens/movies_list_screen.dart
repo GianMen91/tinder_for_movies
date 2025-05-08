@@ -2,96 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tinder_for_movies/profile_page_widget.dart';
-import 'package:tinder_for_movies/swipe_page_widget.dart';
+import 'package:tinder_for_movies/screens/profile_screen.dart';
 
-import 'movie_details_widget.dart';
-import 'movies_record.dart';
 
-// Import your actual movie details widget
+import '../models/movies_record.dart';
+import '../models/user_record.dart';
+import 'movie_details_screen.dart';
 
-// User record model
-class UserRecord {
-  final String displayName;
-  final List<DocumentReference> myList;
 
-  UserRecord({
-    required this.displayName,
-    required this.myList,
-  });
 
-  static UserRecord fromSnapshot(DocumentSnapshot snapshot) {
-    final data = snapshot.data() as Map<String, dynamic>;
-    return UserRecord(
-      displayName: data['display_name'] ?? '',
-      myList: List<DocumentReference>.from(data['myList'] ?? []),
-    );
-  }
-}
 
-class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({super.key});
+class MoviesListScreen extends StatefulWidget {
+  const MoviesListScreen({super.key});
 
   @override
-  State<HomePageWidget> createState() => _HomePageWidgetState();
+  State<MoviesListScreen> createState() => _MoviesListScreenState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  int _currentIndex = 0; // Track which tab is selected
-
-  // Define the pages for each tab
-  final List<Widget> _pages = [
-    const HomeContentWidget(),     // Your current Home content
-    const SwipePageWidget(),       // Replace with your actual SwipePage widget
-    const ProfilePageWidget(),     // Replace with your actual ProfilePage widget
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      body: _pages[_currentIndex], // Display selected tab
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:  Color(0xFF303032),
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white54,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.amp_stories),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
-class HomeContentWidget extends StatefulWidget {
-  const HomeContentWidget({super.key});
-
-  @override
-  State<HomeContentWidget> createState() => _HomeContentWidgetState();
-}
-
-class _HomeContentWidgetState extends State<HomeContentWidget> {
+class _MoviesListScreenState extends State<MoviesListScreen> {
 
   User? currentUser;
   UserRecord? userRecord;
@@ -279,7 +207,7 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                MovieDetailsWidget(
+                                                MovieDetailsScreen(
                                                   receiveMovie: movie.reference,
                                                 ),
                                           ),
@@ -370,7 +298,7 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            MovieDetailsWidget(
+                                            MovieDetailsScreen(
                                               receiveMovie: movie.reference,
                                             ),
                                       ),
@@ -457,7 +385,7 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            MovieDetailsWidget(
+                                            MovieDetailsScreen(
                                               receiveMovie: movie.reference,
                                             ),
                                       ),
@@ -544,7 +472,7 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            MovieDetailsWidget(
+                                            MovieDetailsScreen(
                                               receiveMovie: movie.reference,
                                             ),
                                       ),
@@ -577,4 +505,3 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
     );
   }
 }
-

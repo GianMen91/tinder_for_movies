@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tinder_for_movies/sign_in_widget.dart';
+import 'package:tinder_for_movies/screens/sign_in_screen.dart';
 
-import 'home_page_widget.dart';
+
+import '../models/user_record.dart';
+import 'home_page_screen.dart';
 
 class AuthManager {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -31,19 +33,7 @@ class AuthManager {
   }
 }
 
-class UsersRecord {
-  static final CollectionReference collection =
-  FirebaseFirestore.instance.collection('users');
 
-  static Map<String, dynamic> createUsersRecordData({
-    String? displayName,
-  }) {
-    return {
-      'display_name': displayName,
-      'createdTime': FieldValue.serverTimestamp(),
-    };
-  }
-}
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -158,7 +148,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SignInWidget()));
+                                  builder: (context) => const SignInScreen()));
                         },
                         child: Text(
                           'Sign In',
@@ -455,16 +445,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return;
                       }
 
-                      await UsersRecord.collection
+                      await UserRecord.collection
                           .doc(user.uid)
-                          .set(UsersRecord.createUsersRecordData(
+                          .set(UserRecord.createUsersRecordData(
                             displayName: displayNameTextController.text,
                           ));
 
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HomePageWidget()));
+                              builder: (context) => const HomePageScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,

@@ -4,10 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'movies_record.dart';
+import '../models/movies_record.dart';
 
-class MovieDetailsWidget extends StatefulWidget {
-  const MovieDetailsWidget({
+class MovieDetailsScreen extends StatefulWidget {
+  const MovieDetailsScreen({
     super.key,
     required this.receiveMovie,
   });
@@ -16,10 +16,10 @@ class MovieDetailsWidget extends StatefulWidget {
 
 
   @override
-  State<MovieDetailsWidget> createState() => _MovieDetailsWidgetState();
+  State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
 }
 
-class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
+class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Get current user reference

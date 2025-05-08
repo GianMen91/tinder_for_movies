@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tinder_for_movies/sign_in_widget.dart';
+import 'package:tinder_for_movies/screens/sign_in_screen.dart';
 
-class ProfilePageWidget extends StatefulWidget {
-  const ProfilePageWidget({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   static String routeName = 'ProfilePage';
   static String routePath = '/profilePage';
 
   @override
-  State<ProfilePageWidget> createState() => _ProfilePageWidgetState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfilePageWidgetState extends State<ProfilePageWidget> {
+class _ProfileScreenState extends State<ProfileScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -66,7 +66,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     // Using standard navigation instead of GoRouter
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                        builder: (context) => const SignInWidget(),
+                        builder: (context) => const SignInScreen(),
                       ),
                       (route) => false,
                     );

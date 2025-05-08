@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'movie_details_widget.dart';
-import 'movies_record.dart';
+
+import '../models/movies_record.dart';
+import 'movie_details_screen.dart';
 
 
 class SwipeableStack extends StatefulWidget {
@@ -101,14 +102,14 @@ class SwipeableStackState extends State<SwipeableStack> {
 }
 
 
-class SwipePageWidget extends StatefulWidget {
-  const SwipePageWidget({super.key});
+class SwipeScreen extends StatefulWidget {
+  const SwipeScreen({super.key});
 
   @override
-  State<SwipePageWidget> createState() => _SwipePageWidgetState();
+  State<SwipeScreen> createState() => _SwipeScreenState();
 }
 
-class _SwipePageWidgetState extends State<SwipePageWidget> {
+class _SwipeScreenState extends State<SwipeScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   // Add a controller for the swipeable stack
   final SwipeableStackController swipeController = SwipeableStackController();
@@ -290,7 +291,7 @@ class _SwipePageWidgetState extends State<SwipePageWidget> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                MovieDetailsWidget(
+                                                MovieDetailsScreen(
                                                   receiveMovie: swipeableStackMoviesRecord
                                                       .reference,
                                                 ),

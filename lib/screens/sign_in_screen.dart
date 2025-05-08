@@ -1,18 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tinder_for_movies/sign_up_screen.dart';
+import 'package:tinder_for_movies/screens/sign_up_screen.dart';
 
-import 'home_page_widget.dart';
+import 'home_page_screen.dart';
 
-class SignInWidget extends StatefulWidget {
-  const SignInWidget({super.key});
+
+
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<SignInWidget> createState() => _SignInWidgetState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignInWidgetState extends State<SignInWidget> {
+class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -58,7 +60,7 @@ class _SignInWidgetState extends State<SignInWidget> {
         // Navigate to home page on success
 
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomePageWidget()));
+            MaterialPageRoute(builder: (context) => const HomePageScreen()));
       } on FirebaseAuthException catch (e) {
         // Handle authentication errors
         ScaffoldMessenger.of(context).showSnackBar(
