@@ -3,42 +3,47 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tinder_for_movies/screens/sign_in_screen.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
-  static String routeName = 'ProfilePage';
-  static String routePath = '/profilePage';
+  static const String routeName = 'ProfilePage';
+  static const String routePath = '/profilePage';
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
+  /// Signs out the user and navigates to the sign-in screen
+  Future<void> _handleSignOut(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const SignInScreen()),
+          (route) => false,
+    );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  /// Builds the "Sign Out" button
+  Widget _buildSignOutButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => _handleSignOut(context),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        minimumSize: const Size(150, 40),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      child: Text(
+        'Sign Out',
+        style: GoogleFonts.interTight(color: Colors.black),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        key: scaffoldKey,
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          automaticallyImplyLeading: false,
           title: Text(
             'Profile',
             style: GoogleFonts.interTight(
@@ -47,48 +52,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          actions: const [],
           centerTitle: true,
           elevation: 2,
         ),
         body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    // Sign out user
-                    await FirebaseAuth.instance.signOut();
-
-                    // Navigate to sign in page
-                    // Using standard navigation instead of GoRouter
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => const SignInScreen(),
-                      ),
-                      (route) => false,
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    minimumSize: const Size(150, 40),
-                    padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    'sign out',
-                    style: GoogleFonts.interTight(
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          child: Center(
+            child: _buildSignOutButton(context),
           ),
         ),
       ),
