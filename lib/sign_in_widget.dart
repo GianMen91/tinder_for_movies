@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tinder_for_movies/sign_up_widget.dart';
+import 'package:tinder_for_movies/sign_up_screen.dart';
 
 import 'home_page_widget.dart';
 
@@ -133,7 +133,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SignUpWidget()));
+                                  builder: (context) => const SignUpScreen()));
                         },
                         child: Text(
                           'Sign Up',
