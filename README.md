@@ -43,7 +43,7 @@ The app is designed with clean separation of concerns using service-based logic:
 - Firestore is queried and filtered by genre/category in real time.
 
 ### 3. Navigation
-- Bottom navigation bar manages view switching between movie discovery and profile/logout.
+- Bottom navigation bar manages view switching between movies list, tinder-Like swipe screen and profile/logout.
 
 ### 4. Tinder-Like Swipe Interface
 - Custom swipe widgets to interact with movies.
@@ -56,5 +56,4 @@ The app is designed with clean separation of concerns using service-based logic:
 - **Firebase Auth** – Secure user authentication
 - **Cloud Firestore** – Real-time cloud-hosted NoSQL database
 - **Widgetbook** – Visualize and test widgets in isolation
-- **Provider / Riverpod / setState** – *(Specify your state management approach)*
 
