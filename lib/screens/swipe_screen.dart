@@ -2,105 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../models/movies_record.dart';
+import '../widgets/swipeable_stack.dart';
+import '../widgets/swipeable_stack_controller.dart';
 import 'movie_details_screen.dart';
-
-class SwipeableStack extends StatefulWidget {
-  const SwipeableStack({
-    super.key,
-    required this.itemBuilder,
-    required this.itemCount,
-    this.onSwipeFn,
-    this.onLeftSwipe,
-    this.onRightSwipe,
-    this.onUpSwipe,
-    this.onDownSwipe,
-    this.loop = false,
-    this.cardDisplayCount = 3,
-    this.scale = 0.9,
-    this.controller, // Added controller parameter
-  });
-
-  final Widget Function(BuildContext, int) itemBuilder;
-  final int itemCount;
-
-  final Function(int)? onSwipeFn;
-  final Function(int)? onLeftSwipe;
-  final Function(int)? onRightSwipe;
-  final Function(int)? onUpSwipe;
-  final Function(int)? onDownSwipe;
-  final bool loop;
-  final int cardDisplayCount;
-  final double scale;
-  final SwipeableStackController?
-      controller; // Controller for programmatic swipes
-
-  @override
-  SwipeableStackState createState() => SwipeableStackState();
-}
-
-class SwipeableStackState extends State<SwipeableStack> {
-  // Create a CardSwiperController
-  late CardSwiperController _cardSwiperController;
-
-  @override
-  void initState() {
-    super.initState();
-    _cardSwiperController = CardSwiperController();
-
-    // Connect the controller if provided
-    if (widget.controller != null) {
-      widget.controller!.setCardSwiperController(_cardSwiperController);
-    }
-  }
-
-  @override
-  void dispose() {
-    _cardSwiperController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CardSwiper(
-      controller: _cardSwiperController,
-      // Pass the controller to CardSwiper
-      cardsCount: widget.itemCount,
-      cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
-          widget.itemBuilder(context, index),
-      onSwipe: (int previousIndex, int? currentIndex,
-          CardSwiperDirection direction) {
-        widget.onSwipeFn?.call(previousIndex);
-
-        switch (direction) {
-          case CardSwiperDirection.left:
-            widget.onLeftSwipe?.call(previousIndex);
-            break;
-          case CardSwiperDirection.right:
-            widget.onRightSwipe?.call(previousIndex);
-            break;
-          case CardSwiperDirection.top:
-            widget.onUpSwipe?.call(previousIndex);
-            break;
-          case CardSwiperDirection.bottom:
-            widget.onDownSwipe?.call(previousIndex);
-            break;
-          default:
-            break;
-        }
-
-        return true;
-      },
-      isLoop: widget.loop,
-      numberOfCardsDisplayed: widget.cardDisplayCount,
-      scale: widget.scale,
-      backCardOffset: const Offset(0, 0),
-    );
-  }
-}
 
 class SwipeScreen extends StatefulWidget {
   const SwipeScreen({super.key});
@@ -111,8 +18,6 @@ class SwipeScreen extends StatefulWidget {
 
 class _SwipeScreenState extends State<SwipeScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  // Add a controller for the swipeable stack
   final SwipeableStackController swipeController = SwipeableStackController();
 
   @override
@@ -121,336 +26,172 @@ class _SwipeScreenState extends State<SwipeScreen> {
     super.dispose();
   }
 
+  /// Stream for fetching movies from Firestore
+  Stream<List<MoviesRecord>> getMoviesStream() {
+    return FirebaseFirestore.instance
+        .collection('movies')
+        .snapshots()
+        .map((snapshot) =>
+        snapshot.docs.map((doc) => MoviesRecord.fromSnapshot(doc)).toList());
+  }
+
+  /// Reference to current authenticated user in Firestore
+  DocumentReference? get currentUserRef {
+    final user = FirebaseAuth.instance.currentUser;
+    return user != null
+        ? FirebaseFirestore.instance.collection('users').doc(user.uid)
+        : null;
+  }
+
+  /// Handles liking a movie
+  Future<void> likeMovie(MoviesRecord movie) async {
+    final userRef = currentUserRef;
+    if (userRef == null) return;
+
+    await userRef.update({
+      'myList': FieldValue.arrayUnion([movie.reference]),
+    });
+
+    await movie.reference.update({
+      'likedByUsers': FieldValue.arrayUnion([userRef]),
+    });
+
+    if (kDebugMode) {
+      print('Liked movie: ${movie.title}');
+    }
+  }
+
+  /// Builds a swipeable movie card
+  Widget buildMovieCard(MoviesRecord movie) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF343131),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [BoxShadow(blurRadius: 4, color: Color(0x33000000), offset: Offset(0, 2))],
+      ),
+      child: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  movie.image,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  movie.title,
+                  style: GoogleFonts.interTight(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                Text(
+                  movie.year.toString(),
+                  style: GoogleFonts.interTight(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 25),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.thumb_down, color: Colors.white, size: 40),
+                  onPressed: () => swipeController.swipeLeft(),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.info, color: Colors.white, size: 40),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => MovieDetailsScreen(movieReference: movie.reference),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.thumb_up, color: Colors.white, size: 40),
+                  onPressed: () async {
+                    await likeMovie(movie);
+                    swipeController.swipeRight();
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Builds the swipeable stack widget
+  Widget buildSwipeStack(List<MoviesRecord> movies) {
+    return SwipeableStack(
+      controller: swipeController,
+      itemCount: movies.length,
+      itemBuilder: (context, index) => buildMovieCard(movies[index]),
+      onSwipeFn: (_) {},
+      onLeftSwipe: (index) {
+        if (kDebugMode) {
+          print('Disliked movie: ${movies[index].title}');
+        }
+      },
+      onRightSwipe: (index) => likeMovie(movies[index]),
+      onUpSwipe: (_) {},
+      onDownSwipe: (_) {},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          automaticallyImplyLeading: false,
           title: Text(
             'FILMFLIX',
-            style: TextStyle(
-              fontFamily: GoogleFonts.interTight().fontFamily,
+            style: GoogleFonts.interTight(
               color: const Color(0xFFFF0000),
               fontSize: 30,
-              letterSpacing: 0.0,
               fontWeight: FontWeight.bold,
             ),
           ),
-          actions: const [],
           centerTitle: true,
           elevation: 2,
         ),
         body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: StreamBuilder<List<MoviesRecord>>(
-                  stream: queryMoviesRecord(),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return const Center(
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    }
-                    List<MoviesRecord> swipeableStackMoviesRecordList =
-                        snapshot.data!;
+          child: StreamBuilder<List<MoviesRecord>>(
+            stream: getMoviesStream(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-                    return SwipeableStack(
-                      controller: swipeController,
-                      // Pass the controller
-                      onSwipeFn: (index) {},
-                      onLeftSwipe: (index) {
-                        // Handle left swipe (dislike)
-                        if (kDebugMode) {
-                          print(
-                              'Disliked movie: ${swipeableStackMoviesRecordList[index].title}');
-                        }
-                      },
-                      onRightSwipe: (index) async {
-                        // Handle right swipe (like)
-                        await currentUserReference!.update({
-                          'myList': FieldValue.arrayUnion([
-                            swipeableStackMoviesRecordList[index].reference
-                          ]),
-                        });
-
-                        await swipeableStackMoviesRecordList[index]
-                            .reference
-                            .update({
-                          'likedByUsers':
-                              FieldValue.arrayUnion([currentUserReference]),
-                        });
-
-                        if (kDebugMode) {
-                          print(
-                              'Liked movie: ${swipeableStackMoviesRecordList[index].title}');
-                        }
-                      },
-                      onUpSwipe: (index) {},
-                      onDownSwipe: (index) {},
-                      itemBuilder: (context, swipeableStackIndex) {
-                        final swipeableStackMoviesRecord =
-                            swipeableStackMoviesRecordList[swipeableStackIndex];
-                        return Container(
-                          width: double.infinity,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF343131),
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 4,
-                                color: Color(0x33000000),
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      20, 20, 20, 12),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      swipeableStackMoviesRecord.image,
-                                      width: double.infinity,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    20, 0, 20, 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      swipeableStackMoviesRecord.title,
-                                      style: TextStyle(
-                                        fontFamily:
-                                            GoogleFonts.interTight().fontFamily,
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        letterSpacing: 0.0,
-                                      ),
-                                    ),
-                                    Text(
-                                      swipeableStackMoviesRecord.year
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily:
-                                            GoogleFonts.interTight().fontFamily,
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    20, 0, 20, 25),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        // Trigger left swipe animation (dislike)
-                                        swipeController.swipeLeft();
-                                      },
-                                      child: const Icon(
-                                        Icons.thumb_down,
-                                        color: Colors.white,
-                                        size: 40,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MovieDetailsScreen(
-                                                  movieReference:
-                                                  swipeableStackMoviesRecord
-                                                      .reference,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: const Icon(
-                                        Icons.info,
-                                        color: Colors.white,
-                                        size: 40,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        // First perform the database operations
-                                        await currentUserReference!.update({
-                                          'myList': FieldValue.arrayUnion([
-                                            swipeableStackMoviesRecordList[
-                                                    swipeableStackIndex]
-                                                .reference
-                                          ]),
-                                        });
-
-                                        await swipeableStackMoviesRecordList[
-                                                swipeableStackIndex]
-                                            .reference
-                                            .update({
-                                          'likedByUsers': FieldValue.arrayUnion(
-                                              [currentUserReference]),
-                                        });
-
-                                        // Then trigger the right swipe animation
-                                        swipeController.swipeRight();
-                                      },
-                                      child: const Icon(
-                                        Icons.thumb_up,
-                                        color: Colors.white,
-                                        size: 40,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      itemCount: swipeableStackMoviesRecordList.length,
-                    );
-                  },
-                ),
-              ),
-            ],
+              final movies = snapshot.data!;
+              return buildSwipeStack(movies);
+            },
           ),
         ),
       ),
     );
-  }
-}
-
-Stream<List<MoviesRecord>> queryMoviesRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) {
-  final builder = queryBuilder ?? (q) => q;
-  var query = builder(FirebaseFirestore.instance.collection('movies'));
-
-  if (limit > 0) {
-    query = query.limit(limit);
-  }
-
-  return query.snapshots().map((snapshot) {
-    return snapshot.docs.map((doc) => MoviesRecord.fromSnapshot(doc)).toList();
-  });
-}
-
-DocumentReference? get currentUserReference {
-  User? user = FirebaseAuth.instance.currentUser;
-  return user != null
-      ? FirebaseFirestore.instance.collection('users').doc(user.uid)
-      : null;
-}
-
-class SwipeableStackController {
-  CardSwiperController? _cardSwiperController;
-
-  // Connect to the CardSwiperController
-  void setCardSwiperController(CardSwiperController controller) {
-    _cardSwiperController = controller;
-  }
-
-  // Methods to trigger swipes programmatically
-  void swipeLeft() {
-    if (_cardSwiperController != null) {
-      try {
-        _cardSwiperController!.swipeLeft();
-      } on Exception catch (e) {
-        if (kDebugMode) {
-          print("Error swiping left: $e");
-        }
-      }
-    }
-  }
-
-  void swipeRight() {
-    if (_cardSwiperController != null) {
-      try {
-        _cardSwiperController!.swipeRight();
-      } on Exception catch (e) {
-        if (kDebugMode) {
-          print("Error swiping right: $e");
-        }
-      }
-    }
-  }
-
-  void swipeUp() {
-    if (_cardSwiperController != null) {
-      try {
-        _cardSwiperController!.swipeTop();
-      } on Exception catch (e) {
-        if (kDebugMode) {
-          print("Error swiping up: $e");
-        }
-      }
-    }
-  }
-
-  void swipeDown() {
-    if (_cardSwiperController != null) {
-      try {
-        _cardSwiperController!.swipeBottom();
-      } on Exception catch (e) {
-        if (kDebugMode) {
-          print("Error swiping down: $e");
-        }
-      }
-    }
-  }
-
-  // Method to check if controller is ready
-  bool get isReady => _cardSwiperController != null;
-
-  // Clean up
-  void dispose() {
-    _cardSwiperController = null;
   }
 }
