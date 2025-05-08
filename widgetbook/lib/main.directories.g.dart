@@ -22,7 +22,8 @@ import 'package:widgetbook_workspace/widgets/movie_list_section.dart' as _i9;
 import 'package:widgetbook_workspace/widgets/movie_list_view.dart' as _i10;
 import 'package:widgetbook_workspace/widgets/movie_section.dart' as _i11;
 import 'package:widgetbook_workspace/widgets/movie_thumbnail.dart' as _i12;
-import 'package:widgetbook_workspace/widgets/swipeable_stack.dart' as _i13;
+import 'package:widgetbook_workspace/widgets/navigation_row.dart' as _i13;
+import 'package:widgetbook_workspace/widgets/swipeable_stack.dart' as _i14;
 
 final directories = <_i1.WidgetbookNode>[
   _i1.WidgetbookFolder(
@@ -111,10 +112,17 @@ final directories = <_i1.WidgetbookNode>[
         ),
       ),
       _i1.WidgetbookLeafComponent(
+        name: 'NavigationRow',
+        useCase: _i1.WidgetbookUseCase(
+          name: 'Default',
+          builder: _i13.buildNavigationRowUseCase,
+        ),
+      ),
+      _i1.WidgetbookLeafComponent(
         name: 'SwipeableStack',
         useCase: _i1.WidgetbookUseCase(
           name: 'Default',
-          builder: _i13.buildSwipeableStackUseCase,
+          builder: _i14.buildSwipeableStackUseCase,
         ),
       ),
     ],
