@@ -24,7 +24,7 @@ class UserRecord {
     final data = snapshot.data() as Map<String, dynamic>;
     return UserRecord(
       displayName: data['display_name'] ?? '',
-      myList: List<DocumentReference>.from(data['my_list'] ?? []),
+      myList: List<DocumentReference>.from(data['myList'] ?? []),
     );
   }
 }
@@ -214,7 +214,7 @@ class _HomeContentWidgetState extends State<HomeContentWidget> {
 
                   final data = snapshot.data!.data() as Map<String, dynamic>;
                   final myList =
-                  List<DocumentReference>.from(data['my_list'] ?? []);
+                  List<DocumentReference>.from(data['myList'] ?? []);
 
                   if (myList.isEmpty) {
                     return const SizedBox();

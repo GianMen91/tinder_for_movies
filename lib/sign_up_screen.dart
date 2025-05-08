@@ -39,7 +39,7 @@ class UsersRecord {
     String? displayName,
   }) {
     return {
-      'displayName': displayName,
+      'display_name': displayName,
       'createdTime': FieldValue.serverTimestamp(),
     };
   }
