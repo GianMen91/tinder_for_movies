@@ -246,7 +246,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: passwordTextController,
                     focusNode: textFieldFocusNode2,
                     obscureText: !passwordVisibility,
-                    decoration: buildInputDecoration('password'),
+                    decoration: InputDecoration(
+                      fillColor: Colors.transparent,
+                      isDense: true,
+                      hintText: 'password',
+                      hintStyle: TextStyle(
+                        fontFamily: GoogleFonts.interTight().fontFamily,
+                        color: Colors.white,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.red,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.red,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      filled: true,
+                      suffixIcon: InkWell(
+                        onTap: () => setState(
+                              () => passwordVisibility = !passwordVisibility,
+                        ),
+                        focusNode: FocusNode(skipTraversal: true),
+                        child: Icon(
+                          passwordVisibility
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       fontFamily: GoogleFonts.inter().fontFamily,
                       color: Colors.white,
@@ -269,7 +315,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: confirmPasswordTextController,
                     focusNode: textFieldFocusNode3,
                     obscureText: !confirmPasswordVisibility,
-                    decoration: buildInputDecoration('confirm password'),
+                    decoration: InputDecoration(
+                      fillColor: Colors.transparent,
+                      isDense: true,
+                      hintText: 'confirm password',
+                      hintStyle: TextStyle(
+                        fontFamily: GoogleFonts.interTight().fontFamily,
+                        color: Colors.white,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.red,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.red,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      filled: true,
+                      suffixIcon: InkWell(
+                        onTap: () => setState(
+                              () => confirmPasswordVisibility = !confirmPasswordVisibility,
+                        ),
+                        focusNode: FocusNode(skipTraversal: true),
+                        child: Icon(
+                          confirmPasswordVisibility
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
                     style: TextStyle(
                       fontFamily: GoogleFonts.inter().fontFamily,
                       color: Colors.white,
@@ -342,7 +434,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: ElevatedButton(
                     onPressed: () async {
-                      if (passwordTextController!.text !=
+                      if (passwordTextController.text !=
                           confirmPasswordTextController!.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -356,8 +448,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       final user = await authManager.createAccountWithEmail(
                         context,
-                        emailTextController!.text,
-                        passwordTextController!.text,
+                        emailTextController.text,
+                        passwordTextController.text,
                       );
                       if (user == null) {
                         return;
@@ -366,7 +458,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       await UsersRecord.collection
                           .doc(user.uid)
                           .set(UsersRecord.createUsersRecordData(
-                            displayName: displayNameTextController!.text,
+                            displayName: displayNameTextController.text,
                           ));
 
                       Navigator.pushReplacement(
@@ -403,53 +495,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  InputDecoration buildInputDecoration(String hintText) {
-    return InputDecoration(
-      fillColor: Colors.transparent,
-      isDense: true,
-      hintText: hintText,
-      hintStyle: TextStyle(
-        fontFamily: GoogleFonts.interTight().fontFamily,
-        color: Colors.white,
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: Colors.white,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: Colors.white,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: Colors.red,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(
-          color: Colors.red,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      filled: true,
-      suffixIcon: InkWell(
-        onTap: () => setState(
-          () => passwordVisibility = !passwordVisibility,
-        ),
-        focusNode: FocusNode(skipTraversal: true),
-        child: Icon(
-          passwordVisibility
-              ? Icons.visibility_outlined
-              : Icons.visibility_off_outlined,
-          color: Colors.white,
-          size: 20,
-        ),
-      ),
-    );
-  }
 }
