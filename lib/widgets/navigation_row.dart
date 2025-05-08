@@ -6,6 +6,7 @@ import '../screens/sign_up_screen.dart';
 
 class NavigationRow extends StatelessWidget {
   final bool isFromSignIn;
+
   const NavigationRow({super.key, required this.isFromSignIn});
 
   @override
@@ -28,7 +29,9 @@ class NavigationRow extends StatelessWidget {
               'Sign In',
               style: TextStyle(
                 fontFamily: GoogleFonts.interTight().fontFamily,
-                color: const Color(0xFF787777),
+                color: !isFromSignIn
+                    ? const Color(0xFF787777)
+                    : const Color(0xFFFFFFFF),
                 fontSize: 30,
               ),
             ),
@@ -49,7 +52,9 @@ class NavigationRow extends StatelessWidget {
               'Sign Up',
               style: TextStyle(
                 fontFamily: GoogleFonts.interTight().fontFamily,
-                color: const Color(0xFF787777),
+                color: isFromSignIn
+                    ? const Color(0xFF787777)
+                    : const Color(0xFFFFFFFF),
                 fontSize: 30,
               ),
             ),
