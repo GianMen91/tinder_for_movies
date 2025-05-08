@@ -36,3 +36,7 @@ Tinder for Movies is a **Flutter** application that allows users to discover mov
 - **Cloud Firestore** – Real-time cloud-hosted NoSQL database
 - **Widgetbook** – Visualize and test widgets in isolation
 
+## Future Enhancements
+
+- Add tests
+- Check app responsiveness on different screen sizes
