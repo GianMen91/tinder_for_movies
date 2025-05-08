@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -172,7 +173,9 @@ class _SwipeScreenState extends State<SwipeScreen> {
                       onSwipeFn: (index) {},
                       onLeftSwipe: (index) {
                         // Handle left swipe (dislike)
-                        print('Disliked movie: ${swipeableStackMoviesRecordList[index].title}');
+                        if (kDebugMode) {
+                          print('Disliked movie: ${swipeableStackMoviesRecordList[index].title}');
+                        }
                       },
                       onRightSwipe: (index) async {
                         // Handle right swipe (like)
@@ -189,7 +192,9 @@ class _SwipeScreenState extends State<SwipeScreen> {
                           FieldValue.arrayUnion([currentUserReference]),
                         });
 
-                        print('Liked movie: ${swipeableStackMoviesRecordList[index].title}');
+                        if (kDebugMode) {
+                          print('Liked movie: ${swipeableStackMoviesRecordList[index].title}');
+                        }
                       },
                       onUpSwipe: (index) {},
                       onDownSwipe: (index) {},
@@ -390,8 +395,10 @@ class SwipeableStackController {
     if (_cardSwiperController != null) {
       try {
         _cardSwiperController!.swipeLeft();
-      } catch (e) {
-        print("Error swiping left: $e");
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print("Error swiping left: $e");
+        }
       }
     }
   }
@@ -402,8 +409,10 @@ class SwipeableStackController {
     if (_cardSwiperController != null) {
       try {
         _cardSwiperController!.swipeRight();
-      } catch (e) {
-        print("Error swiping right: $e");
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print("Error swiping right: $e");
+        }
       }
     }
   }
@@ -412,8 +421,10 @@ class SwipeableStackController {
     if (_cardSwiperController != null) {
       try {
         _cardSwiperController!.swipeTop();
-      } catch (e) {
-        print("Error swiping up: $e");
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print("Error swiping up: $e");
+        }
       }
     }
   }
@@ -422,8 +433,10 @@ class SwipeableStackController {
     if (_cardSwiperController != null) {
       try {
         _cardSwiperController!.swipeBottom();
-      } catch (e) {
-        print("Error swiping down: $e");
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print("Error swiping down: $e");
+        }
       }
     }
   }

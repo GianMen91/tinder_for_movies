@@ -32,7 +32,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       key: scaffoldKey,
       body: _pages[_currentIndex], // Display selected tab
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:  Color(0xFF303032),
+        backgroundColor:  const Color(0xFF303032),
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
