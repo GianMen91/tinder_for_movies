@@ -4,8 +4,6 @@
 
 **Tinder for Movies** is a Flutter application that allows users to discover movies in an engaging, Tinder-like experience. Users can swipe right to add movies to their favorites or swipe left to skip them. The app features Firebase Authentication for secure login and logout, and stores user preferences in Firestore. The interface includes a horizontally scrollable movie list organized by categories (All, Favourites, Drama, Action), and a swipe interface to quickly interact with movie suggestions.
 
-Built with clean UI design principles, modular architecture, and **Widgetbook** for component testing, this app is a great example of scalable Flutter development integrated with real-time backend services.
-
 ## Screenshots
 
 <img src="img/img-1.png" width=300 /> <img src="img/img-2.png" width=300 /> 
