@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tinder_for_movies/widgets/app_logo.dart';
 
 import '../models/movies_record.dart';
 import '../widgets/swipeable_stack.dart';
@@ -167,14 +168,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: Text(
-            'FILMFLIX',
-            style: GoogleFonts.interTight(
-              color: const Color(0xFFFF0000),
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          title: AppLogo(),
           centerTitle: true,
           elevation: 2,
         ),

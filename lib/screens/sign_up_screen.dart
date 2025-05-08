@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tinder_for_movies/widgets/app_logo.dart';
 
 import '../models/user_record.dart';
 import '../repository/auth_manager.dart';
@@ -114,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             key: _formKey,
             child: Column(
               children: [
-                _buildLogo(),
+                const AppLogo(),
                 const SizedBox(height: 20),
                 const NavigationRow(isFromSignIn: false),
                 const SizedBox(height: 20),
@@ -156,20 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  // Widgets for the UI components
-  Widget _buildLogo() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 100),
-      child: Text(
-      'FILMFLIX',
-      style: TextStyle(
-        fontFamily: GoogleFonts.interTight().fontFamily,
-        color: const Color(0xFFFF0000),
-        fontSize: 40,
-        fontWeight: FontWeight.bold,
-      ),
-    ));
-  }
+
 
   Widget _buildTextField({
     required TextEditingController controller,

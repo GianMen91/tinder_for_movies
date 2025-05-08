@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../widgets/app_logo.dart';
 import '../widgets/navigation_row.dart';
 import 'home_page_screen.dart';
 
@@ -89,19 +90,11 @@ class _SignInScreenState extends State<SignInScreen> {
             key: _formKey,
             child: Column(
               children: [
-                Align(
-                  alignment: const AlignmentDirectional(0, 0),
+                const Align(
+                  alignment: AlignmentDirectional(0, 0),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
-                    child: Text(
-                      'FILMFLIX',
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.interTight().fontFamily,
-                        color: const Color(0xFFFF0000),
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+                    child: AppLogo(),
                   ),
                 ),
                 const NavigationRow(isFromSignIn: true),
