@@ -300,7 +300,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 MovieDetailsScreen(
-                                              receiveMovie:
+                                                  movieReference:
                                                   swipeableStackMoviesRecord
                                                       .reference,
                                             ),

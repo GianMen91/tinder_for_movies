@@ -199,7 +199,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 MovieDetailsScreen(
-                                              receiveMovie: movie.reference,
+                                                  movieReference: movie.reference,
                                             ),
                                           ),
                                         );
@@ -286,7 +286,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             MovieDetailsScreen(
-                                          receiveMovie: movie.reference,
+                                              movieReference: movie.reference,
                                         ),
                                       ),
                                     );
@@ -371,7 +371,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             MovieDetailsScreen(
-                                          receiveMovie: movie.reference,
+                                              movieReference: movie.reference,
                                         ),
                                       ),
                                     );
@@ -456,7 +456,7 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             MovieDetailsScreen(
-                                          receiveMovie: movie.reference,
+                                              movieReference: movie.reference,
                                         ),
                                       ),
                                     );
